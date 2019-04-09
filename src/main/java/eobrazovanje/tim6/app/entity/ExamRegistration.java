@@ -11,6 +11,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
@@ -23,8 +26,10 @@ public class ExamRegistration {
 	@Column(name = "exam_registration_id", unique = true, nullable = false)
 	private Long id;
 	
-	@Column(name="date" )
-	@Temporal(TemporalType.TIMESTAMP )
+	@Column(name="exam_registration_date" , nullable=false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@JsonFormat(pattern="YYYY-MM-dd HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
+	@CreatedDate
 	private Date date;
 	
 	@Column(name = "deleted", unique = false, nullable = false)
