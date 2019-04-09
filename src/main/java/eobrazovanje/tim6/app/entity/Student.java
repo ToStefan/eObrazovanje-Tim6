@@ -1,24 +1,68 @@
+
 package eobrazovanje.tim6.app.entity;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.hibernate.annotations.Where;
 
+@Entity
+@Table(name = "students")
+@Where(clause = "deleted=false")
 public class Student {
 	
+	@Id
+	@GeneratedValue
+	@Column(name = "student_id", unique = true, nullable = false)
 	private Long id;
+	
+	@Column(name = "firstname", unique = false, nullable = false)
 	private String firstName;
+	
+	@Column(name = "lastname", unique = false, nullable = false)
 	private String lastName;
+	
+	@Column(name = "index", unique = true, nullable = false)
 	private String index;
+	
+	@Column(name = "account_balance", unique = false, nullable = false)
 	private Long accountBalance;
+	
+	@Column(name = "adress", unique = false, nullable = false)
 	private String adress;
+	
+	@Column(name = "phone_number", unique = true, nullable = false)
 	private String phoneNumber;
+	
+	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
+	
+	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
+	@Column(name = "user_id", unique = false, nullable = false)
 	public User user;
-	public java.util.Collection<Payment> payment;
-	public java.util.Set<Document> document;
-	public java.util.Set<Course> course;
-	public java.util.Set<ExamRegistration> examRegistration;
+	
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Collection<Payment> payment;
+	
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<Document> document = new HashSet<Document>();
+	
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<Course> course = new HashSet<Course>();;
+	
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<ExamRegistration> examRegistration = new HashSet<ExamRegistration>();;
 	
 	public Long getId() {
 		
