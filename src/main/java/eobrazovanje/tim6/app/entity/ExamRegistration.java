@@ -2,14 +2,41 @@ package eobrazovanje.tim6.app.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Where;
+
+
+@Entity
+@Table(name = "exam_registrations")
+@Where(clause = "deleted=false")
 public class ExamRegistration {
 	
+	@Id
+	@GeneratedValue
+	@Column(name = "exam_registration_id", unique = true, nullable = false)
 	private Long id;
+	
+	@Column(name="date" )
+	@Temporal(TemporalType.TIMESTAMP )
 	private Date date;
+	
+	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
+	
+	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
+	@Column(name = "course_id", unique = false, nullable = false)
 	public Course course;
+	
+	@Column(name = "student_id", unique = false, nullable = false)
 	public Student student;
 	
 	public Long getId() {
