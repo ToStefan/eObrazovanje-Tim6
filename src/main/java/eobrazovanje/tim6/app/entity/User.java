@@ -1,19 +1,65 @@
 
 package eobrazovanje.tim6.app.entity;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="users")
 public class User {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="user_id", unique=true, nullable=false)
 	private Long id;
+	
+	@Column(name="username", unique=true, nullable=false)
 	private String username;
+	
+	@Column(name="password", unique=false, nullable=false)
 	private String password;
+	
+	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
+	
+	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
-	public Set<Role> role;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
+	public Set<Role> roles = new HashSet<>();
 	
+	public User() {
+
+    }
+	
+	
+	public User(Long id, String username, String password, Boolean deleted, Integer version, Set<Role> roles) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.deleted = deleted;
+		this.version = version;
+		this.roles = roles;
+	}
+
+
+
+
+
 	public Long getId() {
 		
 		return id;
@@ -64,50 +110,38 @@ public class User {
 		version = newVersion;
 	}
 	
-	public java.util.Set<Role> getRole() {
-		
-		if (role == null)
-			role = new java.util.HashSet<Role>();
-		return role;
+	public Set<Role> getRoles() {
+		return roles;
 	}
-	
-	public Iterator getIteratorRole() {
-		
-		if (role == null)
-			role = new java.util.HashSet<Role>();
-		return role.iterator();
-	}
-	
-	public void setRole(java.util.Set<Role> newRole) {
-		
-		removeAllRole();
-		for (Iterator iter = newRole.iterator(); iter.hasNext();)
-			addRole((Role) iter.next());
+
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	
 	public void addRole(Role newRole) {
 		
 		if (newRole == null)
 			return;
-		if (this.role == null)
-			this.role = new java.util.HashSet<Role>();
-		if (!this.role.contains(newRole))
-			this.role.add(newRole);
+		if (this.roles == null)
+			this.roles = new java.util.HashSet<Role>();
+		if (!this.roles.contains(newRole))
+			this.roles.add(newRole);
 	}
 	
 	public void removeRole(Role oldRole) {
 		
 		if (oldRole == null)
 			return;
-		if (this.role != null)
-			if (this.role.contains(oldRole))
-				this.role.remove(oldRole);
+		if (this.roles != null)
+			if (this.roles.contains(oldRole))
+				this.roles.remove(oldRole);
 	}
 	
 	public void removeAllRole() {
 		
-		if (role != null)
-			role.clear();
+		if (roles != null)
+			roles.clear();
 	}
 	
 }
