@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import eobrazovanje.tim6.app.service.impl.PaymentService;
 
 @RestController
-@RequestMapping(value = "api/staff")
+@RequestMapping(value = "api/payments")
 public class PaymentController {
 	
 	@Autowired
