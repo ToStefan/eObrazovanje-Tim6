@@ -45,7 +45,7 @@ public class Course {
 
 	
 	@ManyToMany
-	@JoinTable(name = "course_student", 
+	@JoinTable(name = "course_students", 
 	joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"), 
 	inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"))
 	//@JsonIgnore 
