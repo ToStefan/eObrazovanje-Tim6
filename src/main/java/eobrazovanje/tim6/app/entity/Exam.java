@@ -37,6 +37,7 @@ public class Exam {
 	@Column(name = "student_id", unique = false, nullable = false)
 	public Student student;
 	
+	
 	@Column(name = "course_id", unique = false, nullable = false)
 	public Course course;
 	
