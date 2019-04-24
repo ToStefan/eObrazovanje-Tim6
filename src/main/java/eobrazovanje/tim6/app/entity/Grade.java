@@ -1,7 +1,8 @@
 
 package eobrazovanje.tim6.app.entity;
 
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,27 +11,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Where;
 
 @Entity
-@Table(name = "payments")
+@Table(name = "grades")
 @Where(clause = "deleted=false")
-public class Payment {
+public class Grade {
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "payment_id", unique = true, nullable = false)
+	@Column(name = "grade_id", unique = true, nullable = false)
 	private Long id;
 	
-	@Column(name = "amount", unique = false, nullable = false)
-	private Double amount;
+	@Column(name = "grade", unique = true, nullable = false)
+	private Integer grade;
 	
-	@Column(name = "payment_purpose", unique = false, nullable = false)
-	private String paymentPurpose;
+	@Column(name = "total_points", unique = true, nullable = false)
+	private Integer totalPoints;
 	
-	@Column(name = "date", unique = false, nullable = false)
-	private Date date;
+	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<Exam> exam = new HashSet<Exam>();
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "student_id")
+	public Student student;
 	
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
@@ -38,11 +44,7 @@ public class Payment {
 	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "student_id")
-	public Student student;
-	
-	public Payment() {
+	public Grade() {
 		
 	}
 	
@@ -56,34 +58,44 @@ public class Payment {
 		this.id = id;
 	}
 	
-	public Double getAmount() {
+	public Integer getGrade() {
 		
-		return amount;
+		return grade;
 	}
 	
-	public void setAmount(Double amount) {
+	public void setGrade(Integer grade) {
 		
-		this.amount = amount;
+		this.grade = grade;
 	}
 	
-	public String getPaymentPurpose() {
+	public Integer getTotalPoints() {
 		
-		return paymentPurpose;
+		return totalPoints;
 	}
 	
-	public void setPaymentPurpose(String paymentPurpose) {
+	public void setTotalPoints(Integer totalPoints) {
 		
-		this.paymentPurpose = paymentPurpose;
+		this.totalPoints = totalPoints;
 	}
 	
-	public Date getDate() {
+	public Set<Exam> getExam() {
 		
-		return date;
+		return exam;
 	}
 	
-	public void setDate(Date date) {
+	public void setExam(Set<Exam> exam) {
 		
-		this.date = date;
+		this.exam = exam;
+	}
+	
+	public Student getStudent() {
+		
+		return student;
+	}
+	
+	public void setStudent(Student student) {
+		
+		this.student = student;
 	}
 	
 	public Boolean getDeleted() {
@@ -104,15 +116,5 @@ public class Payment {
 	public void setVersion(Integer version) {
 		
 		this.version = version;
-	}
-	
-	public Student getStudent() {
-		
-		return student;
-	}
-	
-	public void setStudent(Student student) {
-		
-		this.student = student;
 	}
 }

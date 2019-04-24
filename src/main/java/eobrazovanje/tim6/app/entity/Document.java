@@ -1,3 +1,4 @@
+
 package eobrazovanje.tim6.app.entity;
 
 import javax.persistence.CascadeType;
@@ -9,9 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "documents")
+@Where(clause = "deleted=false")
 public class Document {
 	
 	@Id
@@ -34,6 +37,10 @@ public class Document {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "student_id")
 	public Student student;
+	
+	public Document() {
+		
+	}
 	
 	public Long getId() {
 		
@@ -90,19 +97,8 @@ public class Document {
 		return student;
 	}
 	
-	public void setStudent(Student newStudent) {
+	public void setStudent(Student student) {
 		
-		if (this.student == null || !this.student.equals(newStudent)) {
-			if (this.student != null) {
-				Student oldStudent = this.student;
-				this.student = null;
-				oldStudent.removeDocument(this);
-			}
-			if (newStudent != null) {
-				this.student = newStudent;
-				this.student.addDocument(this);
-			}
-		}
+		this.student = student;
 	}
-	
 }

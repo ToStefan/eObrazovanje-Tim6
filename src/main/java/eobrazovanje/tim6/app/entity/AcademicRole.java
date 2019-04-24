@@ -1,9 +1,15 @@
+
 package eobrazovanje.tim6.app.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Where;
 
@@ -26,14 +32,24 @@ public class AcademicRole {
 	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
+	@OneToMany(mappedBy = "academicRole", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<Staff> staffs = new HashSet<Staff>();
+	
+	@OneToMany(mappedBy = "academicRole", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<Engagement> engagements = new HashSet<Engagement>();
+	
+	public AcademicRole() {
+		
+	}
+	
 	public Long getId() {
 		
 		return id;
 	}
 	
-	public void setId(Long newId) {
+	public void setId(Long id) {
 		
-		id = newId;
+		this.id = id;
 	}
 	
 	public Long getName() {
@@ -41,9 +57,9 @@ public class AcademicRole {
 		return name;
 	}
 	
-	public void setName(Long newName) {
+	public void setName(Long name) {
 		
-		name = newName;
+		this.name = name;
 	}
 	
 	public Boolean getDeleted() {
@@ -51,9 +67,9 @@ public class AcademicRole {
 		return deleted;
 	}
 	
-	public void setDeleted(Boolean newDeleted) {
+	public void setDeleted(Boolean deleted) {
 		
-		deleted = newDeleted;
+		this.deleted = deleted;
 	}
 	
 	public Integer getVersion() {
@@ -61,8 +77,28 @@ public class AcademicRole {
 		return version;
 	}
 	
-	public void setVersion(Integer newVersion) {
+	public void setVersion(Integer version) {
 		
-		version = newVersion;
+		this.version = version;
+	}
+	
+	public Set<Staff> getStaffs() {
+		
+		return staffs;
+	}
+	
+	public void setStaffs(Set<Staff> staffs) {
+		
+		this.staffs = staffs;
+	}
+	
+	public Set<Engagement> getEngagements() {
+		
+		return engagements;
+	}
+	
+	public void setEngagements(Set<Engagement> engagements) {
+		
+		this.engagements = engagements;
 	}
 }

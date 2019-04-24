@@ -3,7 +3,6 @@ package eobrazovanje.tim6.app.entity;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Where;
 
@@ -52,30 +52,43 @@ public class Student {
 	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
-	@Column(name = "user_id", unique = false, nullable = false)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "user_id", nullable = false)
 	public User user;
 	
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Collection<Payment> payment;
+	public Collection<Payment> payments;
 	
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Set<Document> document = new HashSet<Document>();
+	public Set<Document> documents = new HashSet<Document>();
+	
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<Exam> exams = new HashSet<Exam>();
+	
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<Grade> grades = new HashSet<Grade>();
+	
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<ExamRegistration> examRegistrations = new HashSet<ExamRegistration>();
 	
 	@ManyToMany
-	@JoinTable(name = "student_courses", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"))
-	public Set<Course> course = new HashSet<Course>();;
+	@JoinTable(name = "student_courses", 
+			joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"), 
+					inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"))
+	public Set<Course> courses = new HashSet<Course>();;
 	
-	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Set<ExamRegistration> examRegistration = new HashSet<ExamRegistration>();;
+	public Student() {
+		
+	}
 	
 	public Long getId() {
 		
 		return id;
 	}
 	
-	public void setId(Long newId) {
+	public void setId(Long id) {
 		
-		id = newId;
+		this.id = id;
 	}
 	
 	public String getFirstName() {
@@ -83,9 +96,9 @@ public class Student {
 		return firstName;
 	}
 	
-	public void setFirstName(String newFirstName) {
+	public void setFirstName(String firstName) {
 		
-		firstName = newFirstName;
+		this.firstName = firstName;
 	}
 	
 	public String getLastName() {
@@ -93,9 +106,9 @@ public class Student {
 		return lastName;
 	}
 	
-	public void setLastName(String newLastName) {
+	public void setLastName(String lastName) {
 		
-		lastName = newLastName;
+		this.lastName = lastName;
 	}
 	
 	public String getIndex() {
@@ -103,9 +116,9 @@ public class Student {
 		return index;
 	}
 	
-	public void setIndex(String newIndex) {
+	public void setIndex(String index) {
 		
-		index = newIndex;
+		this.index = index;
 	}
 	
 	public Long getAccountBalance() {
@@ -113,9 +126,9 @@ public class Student {
 		return accountBalance;
 	}
 	
-	public void setAccountBalance(Long newAccountBalance) {
+	public void setAccountBalance(Long accountBalance) {
 		
-		accountBalance = newAccountBalance;
+		this.accountBalance = accountBalance;
 	}
 	
 	public String getAdress() {
@@ -123,9 +136,9 @@ public class Student {
 		return adress;
 	}
 	
-	public void setAdress(String newAdress) {
+	public void setAdress(String adress) {
 		
-		adress = newAdress;
+		this.adress = adress;
 	}
 	
 	public String getPhoneNumber() {
@@ -133,9 +146,9 @@ public class Student {
 		return phoneNumber;
 	}
 	
-	public void setPhoneNumber(String newPhoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		
-		phoneNumber = newPhoneNumber;
+		this.phoneNumber = phoneNumber;
 	}
 	
 	public Boolean getDeleted() {
@@ -143,9 +156,9 @@ public class Student {
 		return deleted;
 	}
 	
-	public void setDeleted(Boolean newDeleted) {
+	public void setDeleted(Boolean deleted) {
 		
-		deleted = newDeleted;
+		this.deleted = deleted;
 	}
 	
 	public Integer getVersion() {
@@ -153,223 +166,78 @@ public class Student {
 		return version;
 	}
 	
-	public void setVersion(Integer newVersion) {
+	public void setVersion(Integer version) {
 		
-		version = newVersion;
+		this.version = version;
 	}
 	
-	public java.util.Collection<Payment> getPayment() {
+	public User getUser() {
 		
-		if (payment == null)
-			payment = new java.util.HashSet<Payment>();
-		return payment;
+		return user;
 	}
 	
-	public Iterator getIteratorPayment() {
+	public void setUser(User user) {
 		
-		if (payment == null)
-			payment = new java.util.HashSet<Payment>();
-		return payment.iterator();
+		this.user = user;
 	}
 	
-	public void setPayment(java.util.Collection<Payment> newPayment) {
+	public Collection<Payment> getPayments() {
 		
-		removeAllPayment();
-		for (Iterator iter = newPayment.iterator(); iter.hasNext();)
-			addPayment((Payment) iter.next());
+		return payments;
 	}
 	
-	public void addPayment(Payment newPayment) {
+	public void setPayments(Collection<Payment> payments) {
 		
-		if (newPayment == null)
-			return;
-		if (this.payment == null)
-			this.payment = new java.util.HashSet<Payment>();
-		if (!this.payment.contains(newPayment)) {
-			this.payment.add(newPayment);
-			newPayment.setStudent(this);
-		}
+		this.payments = payments;
 	}
 	
-	public void removePayment(Payment oldPayment) {
+	public Set<Document> getDocuments() {
 		
-		if (oldPayment == null)
-			return;
-		if (this.payment != null)
-			if (this.payment.contains(oldPayment)) {
-				this.payment.remove(oldPayment);
-				oldPayment.setStudent((Student) null);
-			}
+		return documents;
 	}
 	
-	public void removeAllPayment() {
+	public void setDocuments(Set<Document> documents) {
 		
-		if (payment != null) {
-			Payment oldPayment;
-			for (Iterator iter = getIteratorPayment(); iter.hasNext();) {
-				oldPayment = (Payment) iter.next();
-				iter.remove();
-				oldPayment.setStudent((Student) null);
-			}
-		}
+		this.documents = documents;
 	}
 	
-	public java.util.Set<Document> getDocument() {
+	public Set<Exam> getExams() {
 		
-		if (document == null)
-			document = new java.util.HashSet<Document>();
-		return document;
+		return exams;
 	}
 	
-	public Iterator getIteratorDocument() {
+	public void setExams(Set<Exam> exams) {
 		
-		if (document == null)
-			document = new java.util.HashSet<Document>();
-		return document.iterator();
+		this.exams = exams;
 	}
 	
-	public void setDocument(java.util.Set<Document> newDocument) {
+	public Set<Grade> getGrades() {
 		
-		removeAllDocument();
-		for (Iterator iter = newDocument.iterator(); iter.hasNext();)
-			addDocument((Document) iter.next());
+		return grades;
 	}
 	
-	public void addDocument(Document newDocument) {
+	public void setGrades(Set<Grade> grades) {
 		
-		if (newDocument == null)
-			return;
-		if (this.document == null)
-			this.document = new java.util.HashSet<Document>();
-		if (!this.document.contains(newDocument)) {
-			this.document.add(newDocument);
-			newDocument.setStudent(this);
-		}
+		this.grades = grades;
 	}
 	
-	public void removeDocument(Document oldDocument) {
+	public Set<Course> getCourses() {
 		
-		if (oldDocument == null)
-			return;
-		if (this.document != null)
-			if (this.document.contains(oldDocument)) {
-				this.document.remove(oldDocument);
-				oldDocument.setStudent((Student) null);
-			}
+		return courses;
 	}
 	
-	public void removeAllDocument() {
+	public void setCourses(Set<Course> courses) {
 		
-		if (document != null) {
-			Document oldDocument;
-			for (Iterator iter = getIteratorDocument(); iter.hasNext();) {
-				oldDocument = (Document) iter.next();
-				iter.remove();
-				oldDocument.setStudent((Student) null);
-			}
-		}
+		this.courses = courses;
 	}
 	
-	public java.util.Set<Course> getCourse() {
+	public Set<ExamRegistration> getExamRegistrations() {
 		
-		if (course == null)
-			course = new java.util.HashSet<Course>();
-		return course;
+		return examRegistrations;
 	}
 	
-	public Iterator getIteratorCourse() {
+	public void setExamRegistrations(Set<ExamRegistration> examRegistrations) {
 		
-		if (course == null)
-			course = new java.util.HashSet<Course>();
-		return course.iterator();
+		this.examRegistrations = examRegistrations;
 	}
-	
-	public void setCourse(java.util.Set<Course> newCourse) {
-		
-		removeAllCourse();
-		for (Iterator iter = newCourse.iterator(); iter.hasNext();)
-			addCourse((Course) iter.next());
-	}
-	
-	public void addCourse(Course newCourse) {
-		
-		if (newCourse == null)
-			return;
-		if (this.course == null)
-			this.course = new java.util.HashSet<Course>();
-		if (!this.course.contains(newCourse))
-			this.course.add(newCourse);
-	}
-	
-	public void removeCourse(Course oldCourse) {
-		
-		if (oldCourse == null)
-			return;
-		if (this.course != null)
-			if (this.course.contains(oldCourse))
-				this.course.remove(oldCourse);
-	}
-	
-	public void removeAllCourse() {
-		
-		if (course != null)
-			course.clear();
-	}
-	
-	public java.util.Set<ExamRegistration> getExamRegistration() {
-		
-		if (examRegistration == null)
-			examRegistration = new java.util.HashSet<ExamRegistration>();
-		return examRegistration;
-	}
-	
-	public Iterator getIteratorExamRegistration() {
-		
-		if (examRegistration == null)
-			examRegistration = new java.util.HashSet<ExamRegistration>();
-		return examRegistration.iterator();
-	}
-	
-	public void setExamRegistration(java.util.Set<ExamRegistration> newExamRegistration) {
-		
-		removeAllExamRegistration();
-		for (java.util.Iterator iter = newExamRegistration.iterator(); iter.hasNext();)
-			addExamRegistration((ExamRegistration) iter.next());
-	}
-	
-	public void addExamRegistration(ExamRegistration newExamRegistration) {
-		
-		if (newExamRegistration == null)
-			return;
-		if (this.examRegistration == null)
-			this.examRegistration = new java.util.HashSet<ExamRegistration>();
-		if (!this.examRegistration.contains(newExamRegistration)) {
-			this.examRegistration.add(newExamRegistration);
-			newExamRegistration.setStudent(this);
-		}
-	}
-	
-	public void removeExamRegistration(ExamRegistration oldExamRegistration) {
-		
-		if (oldExamRegistration == null)
-			return;
-		if (this.examRegistration != null)
-			if (this.examRegistration.contains(oldExamRegistration)) {
-				this.examRegistration.remove(oldExamRegistration);
-				oldExamRegistration.setStudent((Student) null);
-			}
-	}
-	
-	public void removeAllExamRegistration() {
-		
-		if (examRegistration != null) {
-			ExamRegistration oldExamRegistration;
-			for (Iterator iter = getIteratorExamRegistration(); iter.hasNext();) {
-				oldExamRegistration = (ExamRegistration) iter.next();
-				iter.remove();
-				oldExamRegistration.setStudent((Student) null);
-			}
-		}
-	}
-	
 }

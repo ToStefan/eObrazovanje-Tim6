@@ -1,10 +1,14 @@
 
 package eobrazovanje.tim6.app.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Where;
 
@@ -24,14 +28,21 @@ public class Engagement {
 	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
-	@Column(name = "academic_role_id", unique = false, nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "academic_role_id")
 	public AcademicRole academicRole;
 	
-	@Column(name = "course_id", unique = false, nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "course_id")
 	public Course course;
 	
-	@Column(name = "staff_id", unique = false, nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "staff_id")
 	public Staff staff;
+	
+	public Engagement() {
+		
+	}
 	
 	public Long getId() {
 		

@@ -1,20 +1,22 @@
+
 package eobrazovanje.tim6.app.entity;
 
 import java.util.Date;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 
 @Entity
 @Table(name = "exam_registrations")
@@ -26,8 +28,8 @@ public class ExamRegistration {
 	@Column(name = "exam_registration_id", unique = true, nullable = false)
 	private Long id;
 	
-	@Column(name="exam_registration_date" , nullable=false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	@JsonFormat(pattern="YYYY-MM-dd HH:mm:ss")
+	@Column(name = "exam_registration_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
 	private Date date;
@@ -38,20 +40,26 @@ public class ExamRegistration {
 	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
-	@Column(name = "course_id", unique = false, nullable = false)
-	public Course course;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "exam_id", nullable = false)
+	public Exam exam;
 	
-	@Column(name = "student_id", unique = false, nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "student_id", nullable = false)
 	public Student student;
+	
+	public ExamRegistration() {
+		
+	}
 	
 	public Long getId() {
 		
 		return id;
 	}
 	
-	public void setId(Long newId) {
+	public void setId(Long id) {
 		
-		id = newId;
+		this.id = id;
 	}
 	
 	public Date getDate() {
@@ -59,9 +67,9 @@ public class ExamRegistration {
 		return date;
 	}
 	
-	public void setDate(Date newDate) {
+	public void setDate(Date date) {
 		
-		date = newDate;
+		this.date = date;
 	}
 	
 	public Boolean getDeleted() {
@@ -69,9 +77,9 @@ public class ExamRegistration {
 		return deleted;
 	}
 	
-	public void setDeleted(Boolean newDeleted) {
+	public void setDeleted(Boolean deleted) {
 		
-		deleted = newDeleted;
+		this.deleted = deleted;
 	}
 	
 	public Integer getVersion() {
@@ -79,9 +87,19 @@ public class ExamRegistration {
 		return version;
 	}
 	
-	public void setVersion(Integer newVersion) {
+	public void setVersion(Integer version) {
 		
-		version = newVersion;
+		this.version = version;
+	}
+	
+	public Exam getExam() {
+		
+		return exam;
+	}
+	
+	public void setExam(Exam exam) {
+		
+		this.exam = exam;
 	}
 	
 	public Student getStudent() {
@@ -89,18 +107,8 @@ public class ExamRegistration {
 		return student;
 	}
 	
-	public void setStudent(Student newStudent) {
+	public void setStudent(Student student) {
 		
-		if (this.student == null || !this.student.equals(newStudent)) {
-			if (this.student != null) {
-				Student oldStudent = this.student;
-				this.student = null;
-				oldStudent.removeExamRegistration(this);
-			}
-			if (newStudent != null) {
-				this.student = newStudent;
-				this.student.addExamRegistration(this);
-			}
-		}
+		this.student = student;
 	}
 }

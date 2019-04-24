@@ -2,33 +2,32 @@
 package eobrazovanje.tim6.app.entity;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Where;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
+@Where(clause = "deleted=false")
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id", unique=true, nullable=false)
+	@GeneratedValue
+	@Column(name = "user_id", unique = true, nullable = false)
 	private Long id;
 	
-	@Column(name="username", unique=true, nullable=false)
+	@Column(name = "username", unique = true, nullable = false)
 	private String username;
 	
-	@Column(name="password", unique=false, nullable=false)
+	@Column(name = "password", unique = false, nullable = false)
 	private String password;
 	
 	@Column(name = "deleted", unique = false, nullable = false)
@@ -38,28 +37,13 @@ public class User {
 	private Integer version;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	public Set<Role> roles = new HashSet<>();
 	
 	public User() {
-
-    }
-	
-	
-	public User(Long id, String username, String password, Boolean deleted, Integer version, Set<Role> roles) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.deleted = deleted;
-		this.version = version;
-		this.roles = roles;
+		
 	}
-
-
-
-
-
+	
 	public Long getId() {
 		
 		return id;
@@ -111,11 +95,12 @@ public class User {
 	}
 	
 	public Set<Role> getRoles() {
+		
 		return roles;
 	}
-
-
+	
 	public void setRoles(Set<Role> roles) {
+		
 		this.roles = roles;
 	}
 	
@@ -143,5 +128,4 @@ public class User {
 		if (roles != null)
 			roles.clear();
 	}
-	
 }

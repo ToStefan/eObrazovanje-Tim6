@@ -1,8 +1,8 @@
 
 package eobrazovanje.tim6.app.entity;
 
+import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,16 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Where;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "courses")
@@ -42,34 +35,27 @@ public class Course {
 	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
-
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<Engagement> engagements = new HashSet<Engagement>();
 	
 	@ManyToMany
 	@JoinTable(name = "course_students", 
-	joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"), 
-	inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"))
-	//@JsonIgnore 
+			joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"), 
+					inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"))
 	private Set<Student> students;
 	
-	
-	
-	public Set<Student> getStudents() {
-		if (students == null)
-			students = new java.util.HashSet<Student>();
-		return students;	}
-
-	public void setStudents(Set<Student> students) {
-		this.students = students;
+	public Course() {
+		
 	}
-
+	
 	public Long getId() {
 		
 		return id;
 	}
 	
-	public void setId(Long newId) {
+	public void setId(Long id) {
 		
-		id = newId;
+		this.id = id;
 	}
 	
 	public String getName() {
@@ -77,9 +63,9 @@ public class Course {
 		return name;
 	}
 	
-	public void setName(String newName) {
+	public void setName(String name) {
 		
-		name = newName;
+		this.name = name;
 	}
 	
 	public Boolean getDeleted() {
@@ -87,9 +73,9 @@ public class Course {
 		return deleted;
 	}
 	
-	public void setDeleted(Boolean newDeleted) {
+	public void setDeleted(Boolean deleted) {
 		
-		deleted = newDeleted;
+		this.deleted = deleted;
 	}
 	
 	public Integer getVersion() {
@@ -97,9 +83,28 @@ public class Course {
 		return version;
 	}
 	
-	public void setVersion(Integer newVersion) {
+	public void setVersion(Integer version) {
 		
-		version = newVersion;
+		this.version = version;
 	}
 	
+	public Set<Engagement> getEngagements() {
+		
+		return engagements;
+	}
+	
+	public void setEngagements(Set<Engagement> engagements) {
+		
+		this.engagements = engagements;
+	}
+	
+	public Set<Student> getStudents() {
+		
+		return students;
+	}
+	
+	public void setStudents(Set<Student> students) {
+		
+		this.students = students;
+	}
 }

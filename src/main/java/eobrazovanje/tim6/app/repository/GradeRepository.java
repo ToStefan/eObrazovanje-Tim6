@@ -2,10 +2,9 @@ package eobrazovanje.tim6.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import eobrazovanje.tim6.app.entity.ExamRegistration;
+import eobrazovanje.tim6.app.entity.Grade;
 
 @Repository
-public interface ExamRegistrationRepository extends JpaRepository<ExamRegistration, Long> {
-
+public interface GradeRepository extends JpaRepository<Grade, Long> {
+	
 }

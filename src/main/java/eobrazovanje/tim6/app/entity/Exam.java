@@ -1,13 +1,17 @@
+
 package eobrazovanje.tim6.app.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.Where;
-
 
 @Entity
 @Table(name = "exames")
@@ -18,9 +22,6 @@ public class Exam {
 	@GeneratedValue
 	@Column(name = "exam_id", unique = true, nullable = false)
 	private Long id;
-	
-	@Column(name = "pass", unique = false, nullable = false)
-	private Boolean pass;
 	
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
@@ -34,70 +35,23 @@ public class Exam {
 	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
-	@Column(name = "student_id", unique = false, nullable = false)
+	@Column(name = "is_last_exam", unique = false, nullable = false)
+	private Boolean isLastExam;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "student_id")
 	public Student student;
 	
-	
-	@Column(name = "course_id", unique = false, nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "course_id")
 	public Course course;
 	
-	public Long getId() {
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "exam_registration_id", nullable = false)
+	public ExamRegistration examRegistration;
+	
+	public Exam() {
 		
-		return id;
 	}
 	
-	public void setId(Long newId) {
-		
-		id = newId;
-	}
-	
-	public Boolean getPass() {
-		
-		return pass;
-	}
-	
-	public void setPass(Boolean newPass) {
-		
-		pass = newPass;
-	}
-	
-	public String getName() {
-		
-		return name;
-	}
-	
-	public void setName(String newName) {
-		
-		name = newName;
-	}
-	
-	public Integer getPoints() {
-		
-		return points;
-	}
-	
-	public void setPoints(Integer newPoints) {
-		
-		points = newPoints;
-	}
-	
-	public Boolean getDeleted() {
-		
-		return deleted;
-	}
-	
-	public void setDeleted(Boolean newDeleted) {
-		
-		deleted = newDeleted;
-	}
-	
-	public Integer getVersion() {
-		
-		return version;
-	}
-	
-	public void setVersion(Integer newVersion) {
-		
-		version = newVersion;
-	}
 }
