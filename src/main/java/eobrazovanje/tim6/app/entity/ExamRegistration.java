@@ -2,11 +2,13 @@
 package eobrazovanje.tim6.app.entity;
 
 import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,8 +16,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
+
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -24,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ExamRegistration {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "exam_registration_id", unique = true, nullable = false)
 	private Long id;
 	
@@ -37,6 +42,7 @@ public class ExamRegistration {
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
 	
+	@Version
 	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	

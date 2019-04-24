@@ -6,10 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
+
 import org.hibernate.annotations.Where;
 
 @Entity
@@ -18,13 +21,14 @@ import org.hibernate.annotations.Where;
 public class Engagement {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "engagement_id", unique = true, nullable = false)
 	private Long id;
 	
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
 	
+	@Version
 	@Column(name = "version", unique = false, nullable = false)
 	private Integer version;
 	
