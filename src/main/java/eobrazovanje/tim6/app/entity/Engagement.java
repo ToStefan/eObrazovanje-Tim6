@@ -30,7 +30,7 @@ public class Engagement {
 	
 	@Version
 	@Column(name = "version", unique = false, nullable = false)
-	private Integer version;
+	private Long version;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "academic_role_id")
@@ -68,12 +68,12 @@ public class Engagement {
 		deleted = newDeleted;
 	}
 	
-	public Integer getVersion() {
+	public Long getVersion() {
 		
 		return version;
 	}
 	
-	public void setVersion(Integer newVersion) {
+	public void setVersion(Long newVersion) {
 		
 		version = newVersion;
 	}

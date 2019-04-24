@@ -37,7 +37,7 @@ public class Exam {
 	
 	@Version
 	@Column(name = "version", unique = false, nullable = false)
-	private Integer version;
+	private Long version;
 	
 	@Column(name = "is_last_exam", unique = false, nullable = false)
 	private Boolean isLastExam;
@@ -57,5 +57,79 @@ public class Exam {
 	public Exam() {
 		
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+	public Boolean getIsLastExam() {
+		return isLastExam;
+	}
+
+	public void setIsLastExam(Boolean isLastExam) {
+		this.isLastExam = isLastExam;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public ExamRegistration getExamRegistration() {
+		return examRegistration;
+	}
+
+	public void setExamRegistration(ExamRegistration examRegistration) {
+		this.examRegistration = examRegistration;
+	}
+	
+	
 	
 }

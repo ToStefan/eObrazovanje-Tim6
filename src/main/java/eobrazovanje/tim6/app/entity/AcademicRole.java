@@ -28,14 +28,14 @@ public class AcademicRole {
 	private Long id;
 	
 	@Column(name = "name", unique = false, nullable = false)
-	private Long name;
+	private String name;
 	
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
 	
 	@Version
 	@Column(name = "version", unique = false, nullable = false)
-	private Integer version;
+	private Long version;
 	
 	@OneToMany(mappedBy = "academicRole", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	public Set<Staff> staffs = new HashSet<Staff>();
@@ -57,12 +57,12 @@ public class AcademicRole {
 		this.id = id;
 	}
 	
-	public Long getName() {
+	public String getName() {
 		
 		return name;
 	}
 	
-	public void setName(Long name) {
+	public void setName(String name) {
 		
 		this.name = name;
 	}
@@ -77,12 +77,12 @@ public class AcademicRole {
 		this.deleted = deleted;
 	}
 	
-	public Integer getVersion() {
+	public Long getVersion() {
 		
 		return version;
 	}
 	
-	public void setVersion(Integer version) {
+	public void setVersion(Long version) {
 		
 		this.version = version;
 	}

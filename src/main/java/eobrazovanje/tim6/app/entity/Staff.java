@@ -41,7 +41,7 @@ public class Staff {
 	
 	@Version
 	@Column(name = "version", unique = false, nullable = false)
-	private Integer version;
+	private Long version;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "user_id", nullable = false)
@@ -98,12 +98,12 @@ public class Staff {
 		this.deleted = deleted;
 	}
 	
-	public Integer getVersion() {
+	public Long getVersion() {
 		
 		return version;
 	}
 	
-	public void setVersion(Integer version) {
+	public void setVersion(Long version) {
 		
 		this.version = version;
 	}

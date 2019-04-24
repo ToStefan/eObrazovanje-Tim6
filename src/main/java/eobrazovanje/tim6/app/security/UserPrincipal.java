@@ -24,7 +24,7 @@ public class UserPrincipal implements UserDetails {
 	
 	private boolean deleted = false;
 	
-	private Integer version;
+	private Long version;
 	
 	private Collection<? extends GrantedAuthority> authorities;
 	
@@ -34,7 +34,7 @@ public class UserPrincipal implements UserDetails {
 	
 	
 
-	public UserPrincipal(Long id, String username, String password, boolean deleted, Integer version,
+	public UserPrincipal(Long id, String username, String password, boolean deleted, Long version,
 			Collection<? extends GrantedAuthority> authorities) {
 		super();
 		this.id = id;
@@ -80,7 +80,7 @@ public class UserPrincipal implements UserDetails {
 
 
 
-	public Integer getVersion() {
+	public Long getVersion() {
 		return version;
 	}
 

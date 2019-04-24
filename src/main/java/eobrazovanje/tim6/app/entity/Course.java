@@ -38,7 +38,7 @@ public class Course {
 	
 	@Version
 	@Column(name = "version", unique = false, nullable = false)
-	private Integer version;
+	private Long version;
 	
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	public Set<Engagement> engagements = new HashSet<Engagement>();
@@ -83,12 +83,12 @@ public class Course {
 		this.deleted = deleted;
 	}
 	
-	public Integer getVersion() {
+	public Long getVersion() {
 		
 		return version;
 	}
 	
-	public void setVersion(Integer version) {
+	public void setVersion(Long version) {
 		
 		this.version = version;
 	}
