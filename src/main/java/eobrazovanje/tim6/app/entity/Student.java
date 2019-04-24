@@ -28,14 +28,14 @@ public class Student {
 	@Column(name = "student_id", unique = true, nullable = false)
 	private Long id;
 	
-	@Column(name = "firstname", unique = false, nullable = false)
+	@Column(name = "first_name", unique = false, nullable = false)
 	private String firstName;
 	
-	@Column(name = "lastname", unique = false, nullable = false)
+	@Column(name = "last_name", unique = false, nullable = false)
 	private String lastName;
 	
-	@Column(name = "index", unique = true, nullable = false)
-	private String index;
+	@Column(name = "id_number", unique = true, nullable = false)
+	private String identificationNumber;
 	
 	@Column(name = "account_balance", unique = false, nullable = false)
 	private Long accountBalance;
@@ -75,7 +75,7 @@ public class Student {
 	@JoinTable(name = "student_courses", 
 			joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"), 
 					inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"))
-	public Set<Course> courses = new HashSet<Course>();;
+	public Set<Course> courses = new HashSet<Course>();
 	
 	public Student() {
 		
@@ -113,12 +113,12 @@ public class Student {
 	
 	public String getIndex() {
 		
-		return index;
+		return identificationNumber;
 	}
 	
-	public void setIndex(String index) {
+	public void setIndex(String identificationNumber) {
 		
-		this.index = index;
+		this.identificationNumber = identificationNumber;
 	}
 	
 	public Long getAccountBalance() {
