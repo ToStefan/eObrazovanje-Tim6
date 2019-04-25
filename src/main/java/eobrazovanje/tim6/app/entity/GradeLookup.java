@@ -14,7 +14,7 @@ public class GradeLookup {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "student_id", unique = true, nullable = false)
+	@Column(name = "grade_id", unique = true, nullable = false)
 	private Long id;
 	
 	@Column(name = "grade", unique = true, nullable = false)

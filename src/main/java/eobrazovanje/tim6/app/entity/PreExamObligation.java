@@ -22,7 +22,7 @@ public class PreExamObligation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "exam_id", unique = true, nullable = false)
+	@Column(name = "pre_exam_obligation_id", unique = true, nullable = false)
 	private Long id;
 
 	@Column(name = "name", unique = false, nullable = false)
