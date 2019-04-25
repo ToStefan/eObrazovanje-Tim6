@@ -38,6 +38,9 @@ public class Term {
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted;
 	
+	@Column(name = "current", unique = false, nullable = false)
+	private Boolean current;
+	
 	
 	public Long getId() {
 		return id;
@@ -75,6 +78,14 @@ public class Term {
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
+	public Boolean getCurrent() {
+		return current;
+	}
+	public void setCurrent(Boolean current) {
+		this.current = current;
+	}
+	
+	
 	
 	
 	

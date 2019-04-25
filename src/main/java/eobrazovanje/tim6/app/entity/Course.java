@@ -43,11 +43,7 @@ public class Course {
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	public Set<Engagement> engagements = new HashSet<Engagement>();
 	
-	@ManyToMany
-	@JoinTable(name = "course_students", 
-			joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"), 
-					inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"))
-	private Set<Student> students;
+	
 	
 	public Course() {
 		
@@ -103,13 +99,5 @@ public class Course {
 		this.engagements = engagements;
 	}
 	
-	public Set<Student> getStudents() {
-		
-		return students;
-	}
-	
-	public void setStudents(Set<Student> students) {
-		
-		this.students = students;
-	}
+
 }

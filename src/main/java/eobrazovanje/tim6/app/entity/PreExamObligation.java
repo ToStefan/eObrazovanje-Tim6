@@ -16,7 +16,7 @@ import javax.persistence.Version;
 import org.hibernate.annotations.Where;
 
 @Entity
-@Table(name = "exams")
+@Table(name = "pre_exam_obligations")
 @Where(clause = "deleted=false")
 public class PreExamObligation {
 
