@@ -46,13 +46,18 @@ public class ExamRegistration {
 	@Column(name = "version", unique = false, nullable = false)
 	private Long version;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "exam_id", nullable = false)
-	public Exam exam;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "student_id", nullable = false)
 	public Student student;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "course_id", nullable = false)
+	public Course course;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "term_id", nullable = false)
+	private Term term;
 	
 	public ExamRegistration() {
 		
@@ -98,15 +103,7 @@ public class ExamRegistration {
 		this.version = version;
 	}
 	
-	public Exam getExam() {
-		
-		return exam;
-	}
 	
-	public void setExam(Exam exam) {
-		
-		this.exam = exam;
-	}
 	
 	public Student getStudent() {
 		
@@ -117,4 +114,22 @@ public class ExamRegistration {
 		
 		this.student = student;
 	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public Term getTerm() {
+		return term;
+	}
+
+	public void setTerm(Term term) {
+		this.term = term;
+	}
+	
+	
 }

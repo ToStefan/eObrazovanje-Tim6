@@ -68,7 +68,7 @@ public class Student {
 	public Set<Document> documents = new HashSet<Document>();
 	
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Set<Exam> exams = new HashSet<Exam>();
+	public Set<PreExamObligation> exams = new HashSet<PreExamObligation>();
 	
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	public Set<Grade> grades = new HashSet<Grade>();
@@ -206,12 +206,12 @@ public class Student {
 		this.documents = documents;
 	}
 	
-	public Set<Exam> getExams() {
+	public Set<PreExamObligation> getExams() {
 		
 		return exams;
 	}
 	
-	public void setExams(Set<Exam> exams) {
+	public void setExams(Set<PreExamObligation> exams) {
 		
 		this.exams = exams;
 	}
