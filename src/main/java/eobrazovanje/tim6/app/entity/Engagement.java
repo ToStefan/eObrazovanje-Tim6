@@ -77,5 +77,31 @@ public class Engagement {
 		
 		version = newVersion;
 	}
+
+	public AcademicRole getAcademicRole() {
+		return academicRole;
+	}
+
+	public void setAcademicRole(AcademicRole academicRole) {
+		this.academicRole = academicRole;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+	
+	
 	
 }

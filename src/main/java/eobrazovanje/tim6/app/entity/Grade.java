@@ -37,7 +37,7 @@ public class Grade {
 	private Integer totalPoints;
 	
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Set<PreExamObligation> exam = new HashSet<PreExamObligation>();
+	public Set<PreExamObligation> preExamObligations = new HashSet<PreExamObligation>();
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "student_id")
@@ -88,14 +88,14 @@ public class Grade {
 		this.totalPoints = totalPoints;
 	}
 	
-	public Set<PreExamObligation> getExam() {
+	public Set<PreExamObligation> getPreExamObligations() {
 		
-		return exam;
+		return preExamObligations;
 	}
 	
-	public void setExam(Set<PreExamObligation> exam) {
+	public void setPreExamObligations(Set<PreExamObligation> preExamObligations) {
 		
-		this.exam = exam;
+		this.preExamObligations = preExamObligations;
 	}
 	
 	public Student getStudent() {
@@ -127,4 +127,14 @@ public class Grade {
 		
 		this.version = version;
 	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	
+	
 }
