@@ -1,8 +1,13 @@
 package eobrazovanje.tim6.app.web.dto;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import eobrazovanje.tim6.app.entity.Payment;
 import eobrazovanje.tim6.app.entity.Student;
 
 public class StudentDTO {
@@ -51,6 +56,7 @@ public class StudentDTO {
 		this.courses = courses;
 	}
 	
+	
 	public StudentDTO(Student student) {
 		this(
 			student.getId(), 
@@ -61,16 +67,45 @@ public class StudentDTO {
 			student.getAdress(),
 			student.getPhoneNumber(), 
 			student.getVersion(), 
-			new UserDTO(student.getUser()), 
-			PaymentDTO.paymentsToDTOs(student.getPayments()), 
-			DocumentDTO.documentsToDTOs(student.getDocuments()), 
-			PreExamObligationDTO.preExamObligationsToDTOs(student.getPreExamObligations()), 
-			GradeDTO.gradesToDTOs(student.getGrades()), 
-			ExamRegistrationDTO.examRegistrationsToDTOs(student.getExamRegistrations()),
-			CourseDTO.coursesToDTOs(student.getCourses())
+			new UserDTO(student.getUser()), //not cyclic - Student -> User -> Roles nesting
+			PaymentDTO.paymentsToStrippedDTOs(student.getPayments()),
+			DocumentDTO.documentsToStrippedDTOs(student.getDocuments()), 
+			PreExamObligationDTO.preExamObligationsToStrippedDTOs(student.getPreExamObligations()), 
+			GradeDTO.gradesToStrippedDTOs(student.getGrades()), 
+			ExamRegistrationDTO.examRegistrationsToStrippedDTOs(student.getExamRegistrations()),
+			CourseDTO.coursesToStrippedDTOs(student.getCourses())
 		);
 	}
-
+	
+	public static List<StudentDTO> studentsToDTOs(List<Student> students) {
+		return students
+	            .stream()
+	            .map(student -> new StudentDTO(student))
+	            .collect(Collectors.toList());
+	}
+	
+	//=========================================================================
+	
+	public static StudentDTO buildStripped(Student student) {	
+		StudentDTO sDTO = new StudentDTO();
+		sDTO.setId(student.getId());
+		sDTO.setFirstName(student.getFirstName());
+		sDTO.setLastName(student.getLastName());
+		sDTO.setIdentificationNumber(student.getIdentificationNumber());
+		sDTO.setAccountBalance(student.getAccountBalance());
+		sDTO.setAdress(student.getAdress());
+		sDTO.setPhoneNumber(student.getPhoneNumber());
+		sDTO.setVersion(student.getVersion());
+		return sDTO;
+	}
+	
+	public static Set<StudentDTO> strippedStudentsToDTOs(Set<Student> students) {
+		return students
+	            .stream()
+	            .map(student -> buildStripped(student))
+	            .collect(Collectors.toSet());
+	}
+	
 
 	public Long getId() {
 		return id;

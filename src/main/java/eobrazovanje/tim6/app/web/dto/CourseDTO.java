@@ -1,6 +1,7 @@
 package eobrazovanje.tim6.app.web.dto;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,23 @@ public class CourseDTO {
 		return courses
 	            .stream()
 	            .map(course -> new CourseDTO(course))
+	            .collect(Collectors.toSet());
+	}
+	
+	//=========================================================================
+	
+	public static CourseDTO buildStripped(Course course) {	
+		CourseDTO cDTO = new CourseDTO();
+		cDTO.setId(course.getId());
+		cDTO.setName(course.getName());
+		cDTO.setVersion(course.getVersion());
+		return cDTO;
+	}
+	
+	public static Set<CourseDTO> coursesToStrippedDTOs(Set<Course> courses) {
+		return courses
+	            .stream()
+	            .map(course -> buildStripped(course))
 	            .collect(Collectors.toSet());
 	}
 

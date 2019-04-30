@@ -4,14 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
+import eobrazovanje.tim6.app.entity.PreExamObligation;
 import eobrazovanje.tim6.app.entity.Staff;
 
 public class StaffDTO {
 
 	private Long id;
-	private String firstname;
-	private String lastname;
+	private String firstName;
+	private String lastName;
 	private Long version;
 	public UserDTO user;
 	public Set<EngagementDTO> engagements = new HashSet<EngagementDTO>();
@@ -23,12 +23,12 @@ public class StaffDTO {
 	
 	
 
-	public StaffDTO(Long id, String firstname, String lastname, Long version, UserDTO user,
+	public StaffDTO(Long id, String firstName, String lastName, Long version, UserDTO user,
 			Set<EngagementDTO> engagements, AcademicRoleDTO academicRole) {
 		super();
 		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.version = version;
 		this.user = user;
 		this.engagements = engagements;
@@ -38,12 +38,12 @@ public class StaffDTO {
 	public StaffDTO(Staff staff) {
 		this(
 				staff.getId(),
-				staff.getFirstname(),
-				staff.getLastname(),
+				staff.getFirstName(),
+				staff.getLastName(),
 				staff.getVersion(),
 				new UserDTO(staff.getUser()),
 				EngagementDTO.engagementsToDTOs(staff.getEngagements()),
-				new AcademicRoleDTO(staff.getAcademicRole())
+				AcademicRoleDTO.buildStripped(staff.getAcademicRole())
 		);
 	}
 	
@@ -51,6 +51,24 @@ public class StaffDTO {
 		return staffs
 	            .stream()
 	            .map(staff -> new StaffDTO(staff))
+	            .collect(Collectors.toSet());
+	}
+	
+	//=========================================================================
+	
+	public static StaffDTO buildStripped(Staff staff) {
+		StaffDTO sDTO = new StaffDTO();
+		sDTO.setId(staff.getId());
+		sDTO.setFirstName(staff.getFirstName());
+		sDTO.setLastName(staff.getLastName());
+		sDTO.setVersion(staff.getVersion());
+		return sDTO;
+	}
+		
+	public static Set<StaffDTO> staffsToStrippedDTOs(Set<Staff> staffs) {
+		return staffs
+	            .stream()
+	            .map(staff -> buildStripped(staff))
 	            .collect(Collectors.toSet());
 	}
 
@@ -64,20 +82,20 @@ public class StaffDTO {
 		this.id = id;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Long getVersion() {

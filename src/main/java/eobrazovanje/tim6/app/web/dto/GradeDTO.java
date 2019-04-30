@@ -4,7 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import eobrazovanje.tim6.app.entity.AcademicRole;
+import eobrazovanje.tim6.app.entity.ExamRegistration;
 import eobrazovanje.tim6.app.entity.Grade;
 
 public class GradeDTO {
@@ -41,7 +44,7 @@ public class GradeDTO {
 				grade.getGrade(),
 				grade.getTotalPoints(),
 				PreExamObligationDTO.preExamObligationsToDTOs(grade.getPreExamObligations()),
-				new StudentDTO(grade.getStudent()),
+				StudentDTO.buildStripped(grade.getStudent()),
 				new CourseDTO(grade.getCourse()),
 				grade.getVersion()
 			);
@@ -51,6 +54,23 @@ public class GradeDTO {
 		return grades
 	            .stream()
 	            .map(grade -> new GradeDTO(grade))
+	            .collect(Collectors.toSet());
+	}
+	
+	//=========================================================================
+	
+	public static GradeDTO buildStripped(Grade grade) {	
+		GradeDTO gDTO = new GradeDTO();
+		gDTO.setId(grade.getId());
+		gDTO.setGrade(grade.getGrade());
+		gDTO.setTotalPoints(grade.getTotalPoints());
+		return gDTO;
+	}
+	
+	public static Set<GradeDTO> gradesToStrippedDTOs(Set<Grade> grades) {
+		return grades
+	            .stream()
+	            .map(grade -> buildStripped(grade))
 	            .collect(Collectors.toSet());
 	}
 

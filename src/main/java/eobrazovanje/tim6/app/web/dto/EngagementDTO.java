@@ -32,9 +32,9 @@ public class EngagementDTO {
 		this(
 				engagement.getId(),
 				engagement.getVersion(),
-				new AcademicRoleDTO(engagement.getAcademicRole()),
-				new CourseDTO(engagement.getCourse()),
-				new StaffDTO(engagement.getStaff())
+				AcademicRoleDTO.buildStripped(engagement.getAcademicRole()),
+				CourseDTO.buildStripped(engagement.getCourse()),
+				StaffDTO.buildStripped(engagement.getStaff())
 				
 		);
 	}

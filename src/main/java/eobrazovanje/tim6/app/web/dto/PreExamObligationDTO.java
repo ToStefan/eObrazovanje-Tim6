@@ -3,7 +3,10 @@ package eobrazovanje.tim6.app.web.dto;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import eobrazovanje.tim6.app.entity.Engagement;
+import eobrazovanje.tim6.app.entity.Payment;
 import eobrazovanje.tim6.app.entity.PreExamObligation;
 
 public class PreExamObligationDTO {
@@ -36,8 +39,8 @@ public class PreExamObligationDTO {
 				preExamObligation.getName(),
 				preExamObligation.getPoints(),
 				preExamObligation.getVersion(),
-				new StudentDTO(preExamObligation.getStudent()),
-				new CourseDTO(preExamObligation.getCourse())
+				StudentDTO.buildStripped(preExamObligation.getStudent()),
+				CourseDTO.buildStripped(preExamObligation.getCourse())
 				
 		);
 		
@@ -47,6 +50,24 @@ public class PreExamObligationDTO {
 		return preExamObligations
 	            .stream()
 	            .map(preExamObligation -> new PreExamObligationDTO(preExamObligation))
+	            .collect(Collectors.toSet());
+	}
+	
+	//=========================================================================
+	
+	public static PreExamObligationDTO buildStripped(PreExamObligation preExamObligation) {
+		PreExamObligationDTO peoDTO = new PreExamObligationDTO();
+		peoDTO.setId(preExamObligation.getId());
+		peoDTO.setName(preExamObligation.getName());
+		peoDTO.setPoints(preExamObligation.getPoints());
+		peoDTO.setVersion(preExamObligation.getVersion());
+		return peoDTO;
+	}
+		
+	public static Set<PreExamObligationDTO> preExamObligationsToStrippedDTOs(Set<PreExamObligation> preExamObligations) {
+		return preExamObligations
+	            .stream()
+	            .map(preExamObligation -> buildStripped(preExamObligation))
 	            .collect(Collectors.toSet());
 	}
 

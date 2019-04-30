@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import eobrazovanje.tim6.app.entity.AcademicRole;
 import eobrazovanje.tim6.app.entity.Engagement;
 import eobrazovanje.tim6.app.entity.ExamRegistration;
 
@@ -39,8 +40,8 @@ public class ExamRegistrationDTO {
 				examRegistration.getId(),
 				examRegistration.getDate(),
 				examRegistration.getVersion(),
-				new StudentDTO(examRegistration.getStudent()),
-				new CourseDTO(examRegistration.getCourse()),
+				StudentDTO.buildStripped(examRegistration.getStudent()),
+				CourseDTO.buildStripped(examRegistration.getCourse()),
 				new TermDTO(examRegistration.getTerm())
 			);
 		
@@ -50,6 +51,23 @@ public class ExamRegistrationDTO {
 		return examRegistrations
 	            .stream()
 	            .map(examRegistration -> new ExamRegistrationDTO(examRegistration))
+	            .collect(Collectors.toSet());
+	}
+	
+	//=========================================================================
+	
+	public static ExamRegistrationDTO buildStripped(ExamRegistration examRegistration) {	
+		ExamRegistrationDTO erDTO = new ExamRegistrationDTO();
+		erDTO.setId(examRegistration.getId());
+		erDTO.setDate(examRegistration.getDate());
+		erDTO.setVersion(examRegistration.getVersion());
+		return erDTO;
+	}
+	
+	public static Set<ExamRegistrationDTO> examRegistrationsToStrippedDTOs(Set<ExamRegistration> examRegistrations) {
+		return examRegistrations
+	            .stream()
+	            .map(examRegistration -> buildStripped(examRegistration))
 	            .collect(Collectors.toSet());
 	}
 

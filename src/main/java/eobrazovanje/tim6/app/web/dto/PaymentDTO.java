@@ -1,12 +1,16 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import eobrazovanje.tim6.app.entity.Grade;
 import eobrazovanje.tim6.app.entity.Payment;
 
-public class PaymentDTO {
+public class PaymentDTO implements Serializable {
 
 	private Long id;
 	private Double amount;
@@ -37,14 +41,35 @@ public class PaymentDTO {
 				payment.getPaymentPurpose(), 
 				payment.getDate(), 
 				payment.getVersion(), 
-				new StudentDTO(payment.getStudent())
+				StudentDTO.buildStripped(payment.getStudent())
 			);
 	}
+	
+	
 	
 	public static Set<PaymentDTO> paymentsToDTOs(Set<Payment> payments) {
 		return payments
 	            .stream()
 	            .map(payment -> new PaymentDTO(payment))
+	            .collect(Collectors.toSet());
+	}
+	
+	//=========================================================================
+	
+	public static PaymentDTO buildStripped(Payment payment) {
+		PaymentDTO pDTO = new PaymentDTO();
+		pDTO.setId(payment.getId());
+		pDTO.setAmount(payment.getAmount());
+		pDTO.setPaymentPurpose(payment.getPaymentPurpose());
+		pDTO.setDate(payment.getDate());
+		pDTO.setVersion(payment.getVersion());
+		return pDTO;
+	}
+		
+	public static Set<PaymentDTO> paymentsToStrippedDTOs(Set<Payment> payments) {
+		return payments
+	            .stream()
+	            .map(payment -> buildStripped(payment))
 	            .collect(Collectors.toSet());
 	}
 

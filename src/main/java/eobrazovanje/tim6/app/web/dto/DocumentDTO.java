@@ -3,6 +3,8 @@ package eobrazovanje.tim6.app.web.dto;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import eobrazovanje.tim6.app.entity.Document;
 import eobrazovanje.tim6.app.entity.Payment;
 
@@ -12,6 +14,7 @@ public class DocumentDTO {
 	private String name;
 	private String uri;
 	private Long version;
+	@JsonIgnore
 	public StudentDTO student;
 	
 	public DocumentDTO() {
@@ -34,18 +37,38 @@ public class DocumentDTO {
 				document.getName(),
 				document.getUri(),
 				document.getVersion(),
-				new StudentDTO(document.getStudent())
+				StudentDTO.buildStripped(document.getStudent())
 			);
 	}
 	
+
 	public static Set<DocumentDTO> documentsToDTOs(Set<Document> documents) {
 		return documents
 	            .stream()
 	            .map(document -> new DocumentDTO(document))
 	            .collect(Collectors.toSet());
 	}
-
-
+	
+	
+	//==========================================================================
+	
+	public static DocumentDTO buildStripped(Document document) {
+		DocumentDTO dDTO = new DocumentDTO();
+		dDTO.setId(document.getId());
+		dDTO.setName(dDTO.getName());
+		dDTO.setUri(document.getUri());
+		dDTO.setVersion(document.getVersion());
+		return dDTO;
+	}
+	
+	public static Set<DocumentDTO> documentsToStrippedDTOs(Set<Document> documents) {
+		return documents
+	            .stream()
+	            .map(document -> buildStripped(document))
+	            .collect(Collectors.toSet());
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}

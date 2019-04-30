@@ -31,10 +31,10 @@ public class Staff {
 	private Long id;
 	
 	@Column(name = "firstname", unique = false, nullable = false)
-	private String firstname;
+	private String firstName;
 	
 	@Column(name = "lastname", unique = false, nullable = false)
-	private String lastname;
+	private String lastName;
 	
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
@@ -68,24 +68,24 @@ public class Staff {
 		this.id = id;
 	}
 	
-	public String getFirstname() {
+	public String getFirstName() {
 		
-		return firstname;
+		return firstName;
 	}
 	
-	public void setFirstname(String firstname) {
+	public void setFirstName(String firstName) {
 		
-		this.firstname = firstname;
+		this.firstName = firstName;
 	}
 	
-	public String getLastname() {
+	public String getLastName() {
 		
-		return lastname;
+		return lastName;
 	}
 	
-	public void setLastname(String lastname) {
+	public void setLastName(String lastName) {
 		
-		this.lastname = lastname;
+		this.lastName = lastName;
 	}
 	
 	public Boolean getDeleted() {
@@ -137,4 +137,6 @@ public class Staff {
 		
 		this.academicRole = academicRole;
 	}
+	
+	
 }

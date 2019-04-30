@@ -1,11 +1,11 @@
 package eobrazovanje.tim6.app.web.dto;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import eobrazovanje.tim6.app.entity.AcademicRole;
-import eobrazovanje.tim6.app.entity.Engagement;
 
 
 public class AcademicRoleDTO {
@@ -36,17 +36,35 @@ public class AcademicRoleDTO {
 				academicRole.getId(),
 				academicRole.getName(),
 				academicRole.getVersion(),
-				StaffDTO.staffsToDTOs(academicRole.getStaffs()),
+				StaffDTO.staffsToStrippedDTOs(academicRole.getStaffs()),
 				EngagementDTO.engagementsToDTOs(academicRole.getEngagements())
 		);
 	}
 	
-	public static Set<AcademicRoleDTO> academicRolesToDTOs(Set<AcademicRole> academicRoles) {
+	public static List<AcademicRoleDTO> academicRolesToDTOs(List<AcademicRole> academicRoles) {
 		return academicRoles
 	            .stream()
 	            .map(academicRole -> new AcademicRoleDTO(academicRole))
+	            .collect(Collectors.toList());
+	}
+	
+	//=========================================================================
+	
+	public static AcademicRoleDTO buildStripped(AcademicRole academicRole) {	
+		AcademicRoleDTO arDTO = new AcademicRoleDTO();
+		arDTO.setId(academicRole.getId());
+		arDTO.setName(academicRole.getName());
+		arDTO.setVersion(academicRole.getVersion());
+		return arDTO;
+	}
+	
+	public static Set<AcademicRoleDTO> academicRolesToStrippedDTOs(Set<AcademicRole> academicRoles) {
+		return academicRoles
+	            .stream()
+	            .map(academicRole -> buildStripped(academicRole))
 	            .collect(Collectors.toSet());
 	}
+	
 
 
 	public Long getId() {
