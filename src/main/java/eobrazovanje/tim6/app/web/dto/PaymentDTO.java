@@ -1,13 +1,11 @@
 package eobrazovanje.tim6.app.web.dto;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import eobrazovanje.tim6.app.entity.Grade;
 import eobrazovanje.tim6.app.entity.Payment;
 
 public class PaymentDTO implements Serializable {
@@ -47,7 +45,7 @@ public class PaymentDTO implements Serializable {
 	
 	
 	
-	public static Set<PaymentDTO> paymentsToDTOs(Set<Payment> payments) {
+	public static Set<PaymentDTO> paymentsToDTOs(Collection<Payment> payments) {
 		return payments
 	            .stream()
 	            .map(payment -> new PaymentDTO(payment))

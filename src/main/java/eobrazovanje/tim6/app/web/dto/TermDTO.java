@@ -1,10 +1,10 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import eobrazovanje.tim6.app.entity.ExamRegistration;
 import eobrazovanje.tim6.app.entity.Term;
 
 
@@ -46,7 +46,7 @@ public class TermDTO {
 	}
 
 
-	public static Set<TermDTO> termsToDTOs(Set<Term> terms) {
+	public static Set<TermDTO> termsToDTOs(Collection<Term> terms) {
 		return terms
 	            .stream()
 	            .map(term -> new TermDTO(term))

@@ -11,5 +11,9 @@ import eobrazovanje.tim6.app.entity.Document;
 public interface DocumentRepository extends JpaRepository<Document, Long> {
 	
 	public List<Document> findByStudentId(Long studentId);
+	
+	public Document findByIdAndStudentId(Long documentId, Long studentId);
+	
+	
 
 }

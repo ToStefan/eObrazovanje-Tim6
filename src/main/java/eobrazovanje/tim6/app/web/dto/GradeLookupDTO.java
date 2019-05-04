@@ -1,10 +1,10 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import eobrazovanje.tim6.app.entity.GradeLookup;
-import eobrazovanje.tim6.app.entity.Payment;
 
 public class GradeLookupDTO {
 	
@@ -36,7 +36,7 @@ public class GradeLookupDTO {
 		
 	}
 	
-	public static Set<GradeLookupDTO> gradeLookupsToDTOs(Set<GradeLookup> gradeLookups) {
+	public static Set<GradeLookupDTO> gradeLookupsToDTOs(Collection<GradeLookup> gradeLookups) {
 		return gradeLookups
 	            .stream()
 	            .map(lookup -> new GradeLookupDTO(lookup))

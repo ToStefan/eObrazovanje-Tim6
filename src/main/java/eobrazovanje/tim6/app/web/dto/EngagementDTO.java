@@ -1,10 +1,10 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import eobrazovanje.tim6.app.entity.Engagement;
-import eobrazovanje.tim6.app.entity.Payment;
 
 public class EngagementDTO {
 
@@ -39,7 +39,7 @@ public class EngagementDTO {
 		);
 	}
 	
-	public static Set<EngagementDTO> engagementsToDTOs(Set<Engagement> engagements) {
+	public static Set<EngagementDTO> engagementsToDTOs(Collection<Engagement> engagements) {
 		return engagements
 	            .stream()
 	            .map(engagement -> new EngagementDTO(engagement))

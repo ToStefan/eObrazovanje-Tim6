@@ -1,10 +1,10 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import eobrazovanje.tim6.app.entity.PreExamObligation;
 import eobrazovanje.tim6.app.entity.Staff;
 
 public class StaffDTO {
@@ -47,7 +47,7 @@ public class StaffDTO {
 		);
 	}
 	
-	public static Set<StaffDTO> staffsToDTOs(Set<Staff> staffs) {
+	public static Set<StaffDTO> staffsToDTOs(Collection<Staff> staffs) {
 		return staffs
 	            .stream()
 	            .map(staff -> new StaffDTO(staff))

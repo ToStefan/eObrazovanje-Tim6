@@ -1,11 +1,10 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import eobrazovanje.tim6.app.entity.AcademicRole;
-import eobrazovanje.tim6.app.entity.Engagement;
 import eobrazovanje.tim6.app.entity.ExamRegistration;
 
 
@@ -47,7 +46,7 @@ public class ExamRegistrationDTO {
 		
 	}
 	
-	public static Set<ExamRegistrationDTO> examRegistrationsToDTOs(Set<ExamRegistration> examRegistrations) {
+	public static Set<ExamRegistrationDTO> examRegistrationsToDTOs(Collection<ExamRegistration> examRegistrations) {
 		return examRegistrations
 	            .stream()
 	            .map(examRegistration -> new ExamRegistrationDTO(examRegistration))

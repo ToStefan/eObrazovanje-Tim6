@@ -1,5 +1,6 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class AcademicRoleDTO {
 		);
 	}
 	
-	public static List<AcademicRoleDTO> academicRolesToDTOs(List<AcademicRole> academicRoles) {
+	public static List<AcademicRoleDTO> academicRolesToDTOs(Collection<AcademicRole> academicRoles) {
 		return academicRoles
 	            .stream()
 	            .map(academicRole -> new AcademicRoleDTO(academicRole))

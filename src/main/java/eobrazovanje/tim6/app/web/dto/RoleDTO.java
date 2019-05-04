@@ -1,5 +1,6 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class RoleDTO {
 		this(role.getId(), role.getName());
 	}
 	
-	public static Set<RoleDTO> rolesToDTOs(Set<Role> roles) {
+	public static Set<RoleDTO> rolesToDTOs(Collection<Role> roles) {
 		return roles
 	            .stream()
 	            .map(role -> new RoleDTO(role))

@@ -1,13 +1,10 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import eobrazovanje.tim6.app.entity.AcademicRole;
-import eobrazovanje.tim6.app.entity.ExamRegistration;
 import eobrazovanje.tim6.app.entity.Grade;
 
 public class GradeDTO {
@@ -50,7 +47,7 @@ public class GradeDTO {
 			);
 	}
 	
-	public static Set<GradeDTO> gradesToDTOs(Set<Grade> grades) {
+	public static Set<GradeDTO> gradesToDTOs(Collection<Grade> grades) {
 		return grades
 	            .stream()
 	            .map(grade -> new GradeDTO(grade))

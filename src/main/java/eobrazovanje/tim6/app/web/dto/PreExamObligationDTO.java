@@ -1,12 +1,9 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import eobrazovanje.tim6.app.entity.Engagement;
-import eobrazovanje.tim6.app.entity.Payment;
 import eobrazovanje.tim6.app.entity.PreExamObligation;
 
 public class PreExamObligationDTO {
@@ -46,7 +43,7 @@ public class PreExamObligationDTO {
 		
 	}
 	
-	public static Set<PreExamObligationDTO> preExamObligationsToDTOs(Set<PreExamObligation> preExamObligations) {
+	public static Set<PreExamObligationDTO> preExamObligationsToDTOs(Collection<PreExamObligation> preExamObligations) {
 		return preExamObligations
 	            .stream()
 	            .map(preExamObligation -> new PreExamObligationDTO(preExamObligation))

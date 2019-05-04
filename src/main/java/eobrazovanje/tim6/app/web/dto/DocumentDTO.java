@@ -1,12 +1,12 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import eobrazovanje.tim6.app.entity.Document;
-import eobrazovanje.tim6.app.entity.Payment;
 
 public class DocumentDTO {
 
@@ -14,7 +14,6 @@ public class DocumentDTO {
 	private String name;
 	private String uri;
 	private Long version;
-	@JsonIgnore
 	public StudentDTO student;
 	
 	public DocumentDTO() {
@@ -42,7 +41,7 @@ public class DocumentDTO {
 	}
 	
 
-	public static Set<DocumentDTO> documentsToDTOs(Set<Document> documents) {
+	public static Set<DocumentDTO> documentsToDTOs(Collection<Document> documents) {
 		return documents
 	            .stream()
 	            .map(document -> new DocumentDTO(document))

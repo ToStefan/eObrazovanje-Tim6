@@ -1,13 +1,11 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import eobrazovanje.tim6.app.entity.Payment;
 import eobrazovanje.tim6.app.entity.Student;
 
 public class StudentDTO {
@@ -77,7 +75,7 @@ public class StudentDTO {
 		);
 	}
 	
-	public static List<StudentDTO> studentsToDTOs(List<Student> students) {
+	public static List<StudentDTO> studentsToDTOs(Collection<Student> students) {
 		return students
 	            .stream()
 	            .map(student -> new StudentDTO(student))

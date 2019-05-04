@@ -1,11 +1,10 @@
 package eobrazovanje.tim6.app.web.dto;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import eobrazovanje.tim6.app.entity.AcademicRole;
 import eobrazovanje.tim6.app.entity.Course;
 
 public class CourseDTO {
@@ -38,7 +37,7 @@ public class CourseDTO {
 		);
 	}
 	
-	public static Set<CourseDTO> coursesToDTOs(Set<Course> courses) {
+	public static Set<CourseDTO> coursesToDTOs(Collection<Course> courses) {
 		return courses
 	            .stream()
 	            .map(course -> new CourseDTO(course))
