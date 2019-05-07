@@ -8,17 +8,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
+
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "payments")
+@Where(clause = "deleted=false")
 public class Payment {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "payment_id", unique = true, nullable = false)
 	private Long id;
 	
@@ -34,21 +39,26 @@ public class Payment {
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
 	
-	@Column(name = "deleted", unique = false, nullable = false)
-	private Integer version;
+	@Version
+	@Column(name = "version", unique = false, nullable = false)
+	private Long version;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "student_id")
 	public Student student;
+	
+	public Payment() {
+		
+	}
 	
 	public Long getId() {
 		
 		return id;
 	}
 	
-	public void setId(Long newId) {
+	public void setId(Long id) {
 		
-		id = newId;
+		this.id = id;
 	}
 	
 	public Double getAmount() {
@@ -56,9 +66,9 @@ public class Payment {
 		return amount;
 	}
 	
-	public void setAmount(Double newAmount) {
+	public void setAmount(Double amount) {
 		
-		amount = newAmount;
+		this.amount = amount;
 	}
 	
 	public String getPaymentPurpose() {
@@ -66,9 +76,9 @@ public class Payment {
 		return paymentPurpose;
 	}
 	
-	public void setPaymentPurpose(String newPaymentPurpose) {
+	public void setPaymentPurpose(String paymentPurpose) {
 		
-		paymentPurpose = newPaymentPurpose;
+		this.paymentPurpose = paymentPurpose;
 	}
 	
 	public Date getDate() {
@@ -76,9 +86,9 @@ public class Payment {
 		return date;
 	}
 	
-	public void setDate(Date newDate) {
+	public void setDate(Date date) {
 		
-		date = newDate;
+		this.date = date;
 	}
 	
 	public Boolean getDeleted() {
@@ -86,19 +96,19 @@ public class Payment {
 		return deleted;
 	}
 	
-	public void setDeleted(Boolean newDeleted) {
+	public void setDeleted(Boolean deleted) {
 		
-		deleted = newDeleted;
+		this.deleted = deleted;
 	}
 	
-	public Integer getVersion() {
+	public Long getVersion() {
 		
 		return version;
 	}
 	
-	public void setVersion(Integer newVersion) {
+	public void setVersion(Long version) {
 		
-		version = newVersion;
+		this.version = version;
 	}
 	
 	public Student getStudent() {
@@ -106,19 +116,8 @@ public class Payment {
 		return student;
 	}
 	
-	public void setStudent(Student newStudent) {
+	public void setStudent(Student student) {
 		
-		if (this.student == null || !this.student.equals(newStudent)) {
-			if (this.student != null) {
-				Student oldStudent = this.student;
-				this.student = null;
-				oldStudent.removePayment(this);
-			}
-			if (newStudent != null) {
-				this.student = newStudent;
-				this.student.addPayment(this);
-			}
-		}
+		this.student = student;
 	}
-	
 }

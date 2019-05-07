@@ -1,11 +1,18 @@
 
 package eobrazovanje.tim6.app.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
+
 import org.hibernate.annotations.Where;
 
 @Entity
@@ -14,24 +21,32 @@ import org.hibernate.annotations.Where;
 public class Engagement {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "engagement_id", unique = true, nullable = false)
 	private Long id;
 	
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
 	
+	@Version
 	@Column(name = "version", unique = false, nullable = false)
-	private Integer version;
+	private Long version;
 	
-	@Column(name = "academic_role_id", unique = false, nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "academic_role_id")
 	public AcademicRole academicRole;
 	
-	@Column(name = "course_id", unique = false, nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "course_id")
 	public Course course;
 	
-	@Column(name = "staff_id", unique = false, nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "staff_id")
 	public Staff staff;
+	
+	public Engagement() {
+		
+	}
 	
 	public Long getId() {
 		
@@ -53,14 +68,40 @@ public class Engagement {
 		deleted = newDeleted;
 	}
 	
-	public Integer getVersion() {
+	public Long getVersion() {
 		
 		return version;
 	}
 	
-	public void setVersion(Integer newVersion) {
+	public void setVersion(Long newVersion) {
 		
 		version = newVersion;
 	}
+
+	public AcademicRole getAcademicRole() {
+		return academicRole;
+	}
+
+	public void setAcademicRole(AcademicRole academicRole) {
+		this.academicRole = academicRole;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+	
+	
 	
 }

@@ -7,8 +7,10 @@ import eobrazovanje.tim6.app.entity.Document;
 public interface IDocumentService {
 	
 	List<Document> findAll();
+	Document findOne(Long documentId);
 	List<Document> findByStudentId(Long studentId);
+	Document findOneByStudentId(Long documentId, Long studentId);
 	Document save(Document document);
 	void remove(Long documentId);
-
+	
 }

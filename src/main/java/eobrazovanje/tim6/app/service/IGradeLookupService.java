@@ -1,5 +1,6 @@
 package eobrazovanje.tim6.app.service;
 
-public interface IUserService {
 
+public interface IGradeLookupService {
+	
 }

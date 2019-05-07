@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import eobrazovanje.tim6.app.entity.Document;
 import eobrazovanje.tim6.app.entity.Payment;
 import eobrazovanje.tim6.app.repository.PaymentRepository;
 import eobrazovanje.tim6.app.service.IPaymentService;
@@ -19,10 +20,21 @@ public class PaymentService implements IPaymentService {
 	public List<Payment> findAll() {
 		return paymentRepository.findAll();
 	}
+	
+	@Override
+	public Payment findOne(Long paymentId) {
+		return paymentRepository.getOne(paymentId);
+	}
+	
 
 	@Override
 	public List<Payment> findByStudentId(Long studentId) {
 		return paymentRepository.findByStudentId(studentId);
+	}
+	
+	@Override
+	public Payment findOneByStudentId(Long paymentId, Long studentId) {
+		return paymentRepository.findByIdAndStudentId(paymentId, studentId);
 	}
 
 	@Override
@@ -33,7 +45,7 @@ public class PaymentService implements IPaymentService {
 	@Override
 	public void remove(Long paymentId) {
 		paymentRepository.deleteById(paymentId);
-		
-	}
 
+	}
+	
 }

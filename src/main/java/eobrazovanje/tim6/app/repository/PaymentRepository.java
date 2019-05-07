@@ -1,7 +1,6 @@
 package eobrazovanje.tim6.app.repository;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +11,7 @@ import eobrazovanje.tim6.app.entity.Payment;
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 	
 	public List<Payment> findByStudentId(Long studentId);
+	
+	public Payment findByIdAndStudentId(Long paymentId, Long studentId);
 
 }

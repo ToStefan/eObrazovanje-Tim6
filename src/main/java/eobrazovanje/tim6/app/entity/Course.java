@@ -1,6 +1,7 @@
 
 package eobrazovanje.tim6.app.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -8,20 +9,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Where;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "courses")
@@ -29,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Course {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "course_id", unique = true, nullable = false)
 	private Long id;
 	
@@ -39,37 +36,27 @@ public class Course {
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
 	
+	@Version
 	@Column(name = "version", unique = false, nullable = false)
-	private Integer version;
+	private Long version;
 	
-
-	
-	@ManyToMany
-	@JoinTable(name = "course_student", 
-	joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"), 
-	inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"))
-	//@JsonIgnore 
-	private Set<Student> students;
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	public Set<Engagement> engagements = new HashSet<Engagement>();
 	
 	
 	
-	public Set<Student> getStudents() {
-		if (students == null)
-			students = new java.util.HashSet<Student>();
-		return students;	}
-
-	public void setStudents(Set<Student> students) {
-		this.students = students;
+	public Course() {
+		
 	}
-
+	
 	public Long getId() {
 		
 		return id;
 	}
 	
-	public void setId(Long newId) {
+	public void setId(Long id) {
 		
-		id = newId;
+		this.id = id;
 	}
 	
 	public String getName() {
@@ -77,9 +64,9 @@ public class Course {
 		return name;
 	}
 	
-	public void setName(String newName) {
+	public void setName(String name) {
 		
-		name = newName;
+		this.name = name;
 	}
 	
 	public Boolean getDeleted() {
@@ -87,19 +74,30 @@ public class Course {
 		return deleted;
 	}
 	
-	public void setDeleted(Boolean newDeleted) {
+	public void setDeleted(Boolean deleted) {
 		
-		deleted = newDeleted;
+		this.deleted = deleted;
 	}
 	
-	public Integer getVersion() {
+	public Long getVersion() {
 		
 		return version;
 	}
 	
-	public void setVersion(Integer newVersion) {
+	public void setVersion(Long version) {
 		
-		version = newVersion;
+		this.version = version;
 	}
 	
+	public Set<Engagement> getEngagements() {
+		
+		return engagements;
+	}
+	
+	public void setEngagements(Set<Engagement> engagements) {
+		
+		this.engagements = engagements;
+	}
+	
+
 }

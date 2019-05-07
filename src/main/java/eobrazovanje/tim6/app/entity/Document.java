@@ -1,3 +1,4 @@
+
 package eobrazovanje.tim6.app.entity;
 
 import javax.persistence.CascadeType;
@@ -5,17 +6,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
+
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "documents")
+@Where(clause = "deleted=false")
 public class Document {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "document_id", unique = true, nullable = false)
 	private Long id;
 	
@@ -28,12 +34,17 @@ public class Document {
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
 	
+	@Version
 	@Column(name = "version", unique = false, nullable = false)
-	private Integer version;
+	private Long version;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "student_id")
 	public Student student;
+	
+	public Document() {
+		
+	}
 	
 	public Long getId() {
 		
@@ -75,12 +86,12 @@ public class Document {
 		deleted = newDeleted;
 	}
 	
-	public Integer getVersion() {
+	public Long getVersion() {
 		
 		return version;
 	}
 	
-	public void setVersion(Integer newVersion) {
+	public void setVersion(Long newVersion) {
 		
 		version = newVersion;
 	}
@@ -90,19 +101,8 @@ public class Document {
 		return student;
 	}
 	
-	public void setStudent(Student newStudent) {
+	public void setStudent(Student student) {
 		
-		if (this.student == null || !this.student.equals(newStudent)) {
-			if (this.student != null) {
-				Student oldStudent = this.student;
-				this.student = null;
-				oldStudent.removeDocument(this);
-			}
-			if (newStudent != null) {
-				this.student = newStudent;
-				this.student.addDocument(this);
-			}
-		}
+		this.student = student;
 	}
-	
 }

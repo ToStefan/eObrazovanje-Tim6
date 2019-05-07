@@ -14,15 +14,28 @@ public class DocumentService implements IDocumentService {
 	
 	@Autowired
 	private DocumentRepository documentRepository;
-
+	
 	@Override
 	public List<Document> findAll() {
 		return documentRepository.findAll();
 	}
+	
+	
+	@Override
+	public Document findOne(Long documentId) {
+		return documentRepository.getOne(documentId);
+	}
+
 
 	@Override
 	public List<Document> findByStudentId(Long studentId) {
 		return documentRepository.findByStudentId(studentId);
+	}
+	
+
+	@Override
+	public Document findOneByStudentId(Long documentId, Long studentId) {
+		return documentRepository.findByIdAndStudentId(documentId, studentId);
 	}
 
 	@Override
@@ -33,7 +46,9 @@ public class DocumentService implements IDocumentService {
 	@Override
 	public void remove(Long documentId) {
 		documentRepository.deleteById(documentId);
-		
+
 	}
+	
+	
 
 }
