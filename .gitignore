@@ -31,4 +31,4 @@ HELP.md
 
 
 application.properties
-import.sql
+*.class

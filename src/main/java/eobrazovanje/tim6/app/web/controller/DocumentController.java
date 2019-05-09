@@ -91,7 +91,7 @@ public class DocumentController {
 		document.setName(documentDTO.getName());
 		document.setUri(documentDTO.getUri());
 		document.setDeleted(false);
-		document.setStudent(studentService.findOne(documentDTO.getStudent().getId()));
+		//document.setStudent(studentService.findOne(documentDTO.getStudent().getId()));
 		
 		
 		document = documentService.save(document);
@@ -109,7 +109,7 @@ public class DocumentController {
 		document.setName(documentDTO.getName());
 		document.setUri(documentDTO.getUri());
 		document.setDeleted(false);
-		document.setStudent(studentService.findOne(documentDTO.getStudent().getId()));
+		//document.setStudent(studentService.findOne(documentDTO.getStudent().getId()));
 		
 		
 		document = documentService.save(document);

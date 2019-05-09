@@ -1,6 +1,6 @@
 package eobrazovanje.tim6.app.web.controller;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import eobrazovanje.tim6.app.service.impl.StudentService;
 import eobrazovanje.tim6.app.web.dto.StudentDTO;
+import eobrazovanje.tim6.app.web.mapper.StudentMapper;
 
 @RestController
 @RequestMapping(value = "api/students")
@@ -20,9 +21,13 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 	
+	@Autowired
+	private StudentMapper studentMapper;
+	
 	@GetMapping
-	public ResponseEntity<List<StudentDTO>> getStudents() {
-		return new ResponseEntity<List<StudentDTO>>(StudentDTO.studentsToDTOs(studentService.findAll()), HttpStatus.OK);
+	public ResponseEntity<Collection<StudentDTO>> getStudents() {
+		//return new ResponseEntity<Collection<StudentDTO>>(studentMapper.toDTO(studentService.findAll()), HttpStatus.OK);
+		return null;
 	}
 	
 	@GetMapping(value = "/{id}")

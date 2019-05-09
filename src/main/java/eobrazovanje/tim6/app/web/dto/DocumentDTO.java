@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import eobrazovanje.tim6.app.entity.Document;
 
 public class DocumentDTO {
@@ -14,7 +12,6 @@ public class DocumentDTO {
 	private String name;
 	private String uri;
 	private Long version;
-	public StudentDTO student;
 	
 	public DocumentDTO() {
 		
@@ -27,7 +24,6 @@ public class DocumentDTO {
 		this.name = name;
 		this.uri = uri;
 		this.version = version;
-		this.student = student;
 	}
 
 	public DocumentDTO(Document document) {
@@ -98,14 +94,6 @@ public class DocumentDTO {
 
 	public void setVersion(Long version) {
 		this.version = version;
-	}
-
-	public StudentDTO getStudent() {
-		return student;
-	}
-
-	public void setStudent(StudentDTO student) {
-		this.student = student;
 	}
 
 }
