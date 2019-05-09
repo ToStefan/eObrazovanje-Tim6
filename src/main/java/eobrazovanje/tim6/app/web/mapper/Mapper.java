@@ -1,10 +1,10 @@
 package eobrazovanje.tim6.app.web.mapper;
 
-import java.util.Set;
+import java.util.Collection;
 
 public interface Mapper<E, DTO> {
-	DTO toDTO(E e);
+	DTO toDTO(E entity);
 	E toEntity(DTO dto);
-	Set<DTO> toDTO(Set<E> es);
-	Set<E> toEntity(Set<DTO> dtos);
+	Collection<DTO> toDTO(Collection<E> entities);
+	Collection<E> toEntity(Collection<DTO> dtos);
 }

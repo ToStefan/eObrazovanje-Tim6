@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import eobrazovanje.tim6.app.service.impl.StudentService;
-import eobrazovanje.tim6.app.web.dto.StudentDTO;
+import eobrazovanje.tim6.app.web.dto.old.OldStudentDTO;
 import eobrazovanje.tim6.app.web.mapper.StudentMapper;
 
 @RestController
@@ -25,14 +25,14 @@ public class StudentController {
 	private StudentMapper studentMapper;
 	
 	@GetMapping
-	public ResponseEntity<Collection<StudentDTO>> getStudents() {
+	public ResponseEntity<Collection<OldStudentDTO>> getStudents() {
 		//return new ResponseEntity<Collection<StudentDTO>>(studentMapper.toDTO(studentService.findAll()), HttpStatus.OK);
 		return null;
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<StudentDTO> getStudent(@PathVariable("id") Long id){
-		return new ResponseEntity<StudentDTO>(new StudentDTO(studentService.findOne(id)), HttpStatus.OK);
+	public ResponseEntity<OldStudentDTO> getStudent(@PathVariable("id") Long id){
+		return new ResponseEntity<OldStudentDTO>(new OldStudentDTO(studentService.findOne(id)), HttpStatus.OK);
 		
 	}
 	

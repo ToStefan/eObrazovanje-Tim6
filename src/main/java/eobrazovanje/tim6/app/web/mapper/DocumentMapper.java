@@ -1,23 +1,22 @@
 package eobrazovanje.tim6.app.web.mapper;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import eobrazovanje.tim6.app.entity.Document;
 import eobrazovanje.tim6.app.web.dto.DocumentDTO;
+import eobrazovanje.tim6.app.web.dto.old.OldDocumentDTO;
 
 @Component
 public class DocumentMapper implements Mapper<Document, DocumentDTO> {
 
 	@Override
-	public DocumentDTO toDTO(Document e) {
+	public DocumentDTO toDTO(Document enitity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-//	public DocmentDTO toDTOWithoutStudent()
 
 	@Override
 	public Document toEntity(DocumentDTO dto) {
@@ -26,15 +25,20 @@ public class DocumentMapper implements Mapper<Document, DocumentDTO> {
 	}
 
 	@Override
-	public Set<DocumentDTO> toDTO(Set<Document> es) {
+	public Collection<DocumentDTO> toDTO(Collection<Document> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Set<Document> toEntity(Set<DocumentDTO> dtos) {
+	public Collection<Document> toEntity(Collection<DocumentDTO> dtos) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	//public DocmentDTO toDTOWithoutStudent()
+	
+	
+	
 
 }

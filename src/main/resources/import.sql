@@ -59,10 +59,10 @@ INSERT INTO engagements(staff_id, academic_role_id, course_id , version, deleted
 	VALUES(2, 2, 2, current_timestamp(), 0);
 
 #Courses:
-INSERT INTO courses (deleted, name, version)
-	VALUES(0, 'DB Basics 1', current_timestamp());
-INSERT INTO courses (deleted, name, version)
-	VALUES(0, 'DB Basics 2', current_timestamp());
+INSERT INTO courses (deleted, name, year, version)
+	VALUES(0, 'DB Basics 1', '2019', current_timestamp());
+INSERT INTO courses (deleted, name, year, version)
+	VALUES(0, 'DB Basics 2', '2019', current_timestamp());
 
 #Student courses:
 INSERT INTO student_courses(student_id, course_id)

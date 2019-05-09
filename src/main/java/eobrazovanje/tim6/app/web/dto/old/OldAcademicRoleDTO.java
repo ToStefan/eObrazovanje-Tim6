@@ -1,4 +1,4 @@
-package eobrazovanje.tim6.app.web.dto;
+package eobrazovanje.tim6.app.web.dto.old;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -6,24 +6,27 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import eobrazovanje.tim6.app.entity.AcademicRole;
 
-
-public class AcademicRoleDTO {
+@JsonInclude(Include.NON_NULL)
+public class OldAcademicRoleDTO {
 	
 	
 	private Long id;
 	private String name;
 	private Long version;
-	public Set<StaffDTO> staffs = new HashSet<StaffDTO>();
-	public Set<EngagementDTO> engagements = new HashSet<EngagementDTO>();
+	public Set<OldStaffDTO> staffs = new HashSet<OldStaffDTO>();
+	public Set<OldEngagementDTO> engagements = new HashSet<OldEngagementDTO>();
 	
-	public AcademicRoleDTO() {
+	public OldAcademicRoleDTO() {
 		
 	}
 	
 
-	public AcademicRoleDTO(Long id, String name, Long version, Set<StaffDTO> staffs, Set<EngagementDTO> engagements) {
+	public OldAcademicRoleDTO(Long id, String name, Long version, Set<OldStaffDTO> staffs, Set<OldEngagementDTO> engagements) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,34 +35,34 @@ public class AcademicRoleDTO {
 		this.engagements = engagements;
 	}
 	
-	public AcademicRoleDTO(AcademicRole academicRole) {
+	public OldAcademicRoleDTO(AcademicRole academicRole) {
 		this(
 				academicRole.getId(),
 				academicRole.getName(),
 				academicRole.getVersion(),
-				StaffDTO.staffsToStrippedDTOs(academicRole.getStaffs()),
-				EngagementDTO.engagementsToDTOs(academicRole.getEngagements())
+				OldStaffDTO.staffsToStrippedDTOs(academicRole.getStaffs()),
+				OldEngagementDTO.engagementsToDTOs(academicRole.getEngagements())
 		);
 	}
 	
-	public static List<AcademicRoleDTO> academicRolesToDTOs(Collection<AcademicRole> academicRoles) {
+	public static List<OldAcademicRoleDTO> academicRolesToDTOs(Collection<AcademicRole> academicRoles) {
 		return academicRoles
 	            .stream()
-	            .map(academicRole -> new AcademicRoleDTO(academicRole))
+	            .map(academicRole -> new OldAcademicRoleDTO(academicRole))
 	            .collect(Collectors.toList());
 	}
 	
 	//=========================================================================
 	
-	public static AcademicRoleDTO buildStripped(AcademicRole academicRole) {	
-		AcademicRoleDTO arDTO = new AcademicRoleDTO();
+	public static OldAcademicRoleDTO buildStripped(AcademicRole academicRole) {	
+		OldAcademicRoleDTO arDTO = new OldAcademicRoleDTO();
 		arDTO.setId(academicRole.getId());
 		arDTO.setName(academicRole.getName());
 		arDTO.setVersion(academicRole.getVersion());
 		return arDTO;
 	}
 	
-	public static Set<AcademicRoleDTO> academicRolesToStrippedDTOs(Set<AcademicRole> academicRoles) {
+	public static Set<OldAcademicRoleDTO> academicRolesToStrippedDTOs(Set<AcademicRole> academicRoles) {
 		return academicRoles
 	            .stream()
 	            .map(academicRole -> buildStripped(academicRole))
@@ -86,16 +89,16 @@ public class AcademicRoleDTO {
 	public void setVersion(Long version) {
 		this.version = version;
 	}
-	public Set<StaffDTO> getStaffs() {
+	public Set<OldStaffDTO> getStaffs() {
 		return staffs;
 	}
-	public void setStaffs(Set<StaffDTO> staffs) {
+	public void setStaffs(Set<OldStaffDTO> staffs) {
 		this.staffs = staffs;
 	}
-	public Set<EngagementDTO> getEngagements() {
+	public Set<OldEngagementDTO> getEngagements() {
 		return engagements;
 	}
-	public void setEngagements(Set<EngagementDTO> engagements) {
+	public void setEngagements(Set<OldEngagementDTO> engagements) {
 		this.engagements = engagements;
 	}
 	

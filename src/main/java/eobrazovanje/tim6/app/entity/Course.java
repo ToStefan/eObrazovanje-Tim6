@@ -33,6 +33,9 @@ public class Course {
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
 	
+	@Column(name = "year", unique = false, nullable = false)
+	private String year;
+	
 	@Column(name = "deleted", unique = false, nullable = false)
 	private Boolean deleted = false;
 	
@@ -98,6 +101,16 @@ public class Course {
 		
 		this.engagements = engagements;
 	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+	
+	
 	
 
 }

@@ -1,35 +1,39 @@
-package eobrazovanje.tim6.app.web.dto;
+package eobrazovanje.tim6.app.web.dto.old;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import eobrazovanje.tim6.app.entity.Role;
 import eobrazovanje.tim6.app.entity.RoleName;
 
-public class RoleDTO {
+@JsonInclude(Include.NON_NULL)
+public class OldRoleDTO {
 
 	private Long id;
 	private RoleName name;
 
-	public RoleDTO() {
+	public OldRoleDTO() {
 
 	}
 
-	public RoleDTO(Long id, RoleName name) {
+	public OldRoleDTO(Long id, RoleName name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	public RoleDTO(Role role) {
+	public OldRoleDTO(Role role) {
 		this(role.getId(), role.getName());
 	}
 	
-	public static Set<RoleDTO> rolesToDTOs(Collection<Role> roles) {
+	public static Set<OldRoleDTO> rolesToDTOs(Collection<Role> roles) {
 		return roles
 	            .stream()
-	            .map(role -> new RoleDTO(role))
+	            .map(role -> new OldRoleDTO(role))
 	            .collect(Collectors.toSet());
 	}
 

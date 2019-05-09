@@ -22,7 +22,7 @@ import eobrazovanje.tim6.app.entity.Document;
 import eobrazovanje.tim6.app.entity.Payment;
 import eobrazovanje.tim6.app.service.impl.DocumentService;
 import eobrazovanje.tim6.app.service.impl.StudentService;
-import eobrazovanje.tim6.app.web.dto.DocumentDTO;
+import eobrazovanje.tim6.app.web.dto.old.OldDocumentDTO;
 
 @RestController
 @RequestMapping(value = "/")
@@ -37,44 +37,44 @@ public class DocumentController {
 	//General:
 	
 	@GetMapping(value = "api/documents")
-	public ResponseEntity<Set<DocumentDTO>> getDocuments(){
+	public ResponseEntity<Set<OldDocumentDTO>> getDocuments(){
 		List<Document> documents = documentService.findAll();
 		if(documents == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Set<DocumentDTO>>(DocumentDTO.documentsToDTOs(documents), HttpStatus.OK);
+		return new ResponseEntity<Set<OldDocumentDTO>>(OldDocumentDTO.documentsToDTOs(documents), HttpStatus.OK);
 		
 	}
 	
 	@GetMapping(value = "api/documents/{id}")
-	public ResponseEntity<DocumentDTO> getDocument(@PathVariable("id") Long id){
+	public ResponseEntity<OldDocumentDTO> getDocument(@PathVariable("id") Long id){
 		Document document = documentService.findOne(id);
 		if(document == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<DocumentDTO>(new DocumentDTO(document), HttpStatus.OK);
+		return new ResponseEntity<OldDocumentDTO>(new OldDocumentDTO(document), HttpStatus.OK);
 		
 	}
 	
 	//Nested:
 	
 	@GetMapping(value = "api/students/{id}/documents")
-	public ResponseEntity<Set<DocumentDTO>> getStudentDocuments(@PathVariable("id") Long id){
+	public ResponseEntity<Set<OldDocumentDTO>> getStudentDocuments(@PathVariable("id") Long id){
 		List<Document> studentDocuments = documentService.findByStudentId(id);
 		if(studentDocuments == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Set<DocumentDTO>>(DocumentDTO.documentsToDTOs(studentDocuments), HttpStatus.OK);
+		return new ResponseEntity<Set<OldDocumentDTO>>(OldDocumentDTO.documentsToDTOs(studentDocuments), HttpStatus.OK);
 		
 	}
 	
 	@GetMapping(value = "api/students/{student-id}/documents/{document-id}")
-	public ResponseEntity<DocumentDTO> getStudentDocument(@PathVariable("student-id") Long studentId, @PathVariable("document-id") Long documentId){
+	public ResponseEntity<OldDocumentDTO> getStudentDocument(@PathVariable("student-id") Long studentId, @PathVariable("document-id") Long documentId){
 		Document studentDocument = documentService.findOneByStudentId(documentId, studentId);
 		if(studentDocument == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<DocumentDTO>(new DocumentDTO(studentDocument), HttpStatus.OK);
+		return new ResponseEntity<OldDocumentDTO>(new OldDocumentDTO(studentDocument), HttpStatus.OK);
 		
 	}
 	
@@ -82,9 +82,9 @@ public class DocumentController {
 	
 
 	@PostMapping(value = "api/documents", consumes = "application/json")
-	public ResponseEntity<DocumentDTO> saveDocument(@RequestBody DocumentDTO documentDTO){
+	public ResponseEntity<OldDocumentDTO> saveDocument(@RequestBody OldDocumentDTO documentDTO){
 		if(documentDTO == null) {
-			return new ResponseEntity<DocumentDTO>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<OldDocumentDTO>(HttpStatus.BAD_REQUEST);
 		}
 		
 		Document document = new Document();
@@ -95,12 +95,12 @@ public class DocumentController {
 		
 		
 		document = documentService.save(document);
-		return new ResponseEntity<DocumentDTO>(new DocumentDTO(document), HttpStatus.CREATED);
+		return new ResponseEntity<OldDocumentDTO>(new OldDocumentDTO(document), HttpStatus.CREATED);
 		
 	}
 	
 	@PutMapping(value = "api/documents", consumes = "application/json")
-	public ResponseEntity<DocumentDTO> updatePost(@RequestBody DocumentDTO documentDTO){
+	public ResponseEntity<OldDocumentDTO> updatePost(@RequestBody OldDocumentDTO documentDTO){
 		Document document = documentService.findOne(documentDTO.getId());
 		if (document == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -113,7 +113,7 @@ public class DocumentController {
 		
 		
 		document = documentService.save(document);
-		return new ResponseEntity<DocumentDTO>(new DocumentDTO(document), HttpStatus.CREATED);	
+		return new ResponseEntity<OldDocumentDTO>(new OldDocumentDTO(document), HttpStatus.CREATED);	
 	}
 	
 	@DeleteMapping(value = "api/documents/{id}")
