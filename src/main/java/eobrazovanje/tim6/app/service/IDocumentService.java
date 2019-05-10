@@ -11,6 +11,6 @@ public interface IDocumentService {
 	List<Document> findByStudentId(Long studentId);
 	Document findOneByStudentId(Long documentId, Long studentId);
 	Document save(Document document);
-	void remove(Long documentId);
+	Boolean remove(Long documentId);
 	
 }

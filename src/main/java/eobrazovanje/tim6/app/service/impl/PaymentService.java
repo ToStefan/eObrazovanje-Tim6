@@ -43,8 +43,15 @@ public class PaymentService implements IPaymentService {
 	}
 
 	@Override
-	public void remove(Long paymentId) {
-		paymentRepository.deleteById(paymentId);
+	public Boolean remove(Long paymentId) {
+		Payment payment = findOne(paymentId);
+		if(payment != null) {
+			payment.setDeleted(true);
+			save(payment);
+			return true;
+		}else {
+			return false;
+		}
 
 	}
 	

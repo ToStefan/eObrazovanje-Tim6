@@ -12,6 +12,6 @@ public interface IPaymentService {
 	List<Payment> findByStudentId(Long studentId);
 	Payment findOneByStudentId(Long paymentId, Long studentId);
 	Payment save(Payment payment);
-	void remove(Long paymentId);
+	Boolean remove(Long paymentId);
 
 }

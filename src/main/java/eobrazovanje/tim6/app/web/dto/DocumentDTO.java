@@ -6,6 +6,7 @@ public class DocumentDTO {
 	private String name;
 	private String uri;
 	private Long version;
+	private Boolean deleted;
 	private StudentDTO student;
 	
 	public DocumentDTO() {
@@ -50,6 +51,14 @@ public class DocumentDTO {
 
 	public void setStudent(StudentDTO student) {
 		this.student = student;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 	

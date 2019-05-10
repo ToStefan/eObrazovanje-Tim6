@@ -14,6 +14,7 @@ public class StudentDTO {
 	private String adress;
 	private String phoneNumber;
 	private Long version;
+	private Boolean deleted;
 	public UserDTO user;
 	public Set<PaymentDTO> payments;
 	public Set<DocumentDTO> documents = new HashSet<DocumentDTO>();
@@ -144,6 +145,14 @@ public class StudentDTO {
 
 	public void setCourses(Set<CourseDTO> courses) {
 		this.courses = courses;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 	

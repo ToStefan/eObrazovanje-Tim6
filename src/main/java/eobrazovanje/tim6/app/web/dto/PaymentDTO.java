@@ -11,7 +11,8 @@ public class PaymentDTO {
 	private String paymentPurpose;
 	private Date date;
 	private Long version;
-	public StudentDTO student;
+	private Boolean deleted;
+	private StudentDTO student;
 	
 	public PaymentDTO() {
 		
@@ -64,6 +65,16 @@ public class PaymentDTO {
 	public void setStudent(StudentDTO student) {
 		this.student = student;
 	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 	
 	
 

@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import eobrazovanje.tim6.app.entity.Payment;
 import eobrazovanje.tim6.app.service.impl.PaymentService;
 import eobrazovanje.tim6.app.service.impl.StudentService;
+import eobrazovanje.tim6.app.web.dto.PaymentDTO;
 import eobrazovanje.tim6.app.web.dto.old.OldPaymentDTO;
+import eobrazovanje.tim6.app.web.mapper.PaymentMapper;
 
 @RestController
 @RequestMapping(value = "/")
@@ -29,49 +31,52 @@ public class PaymentController {
 	private PaymentService paymentService;
 	
 	@Autowired
+	private PaymentMapper paymentMapper;
+	
+	@Autowired
 	private StudentService studentService;
 	
 	//General:
 	
 	@GetMapping(value = "api/payments")
-	public ResponseEntity<Set<OldPaymentDTO>> getPayments(){
+	public ResponseEntity<Set<PaymentDTO>> getPayments(){
 		List<Payment> payments = paymentService.findAll();
 		if(payments == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Set<OldPaymentDTO>>(OldPaymentDTO.paymentsToDTOs(payments), HttpStatus.OK);
+		return new ResponseEntity<Set<PaymentDTO>>(paymentMapper.toDTO(payments), HttpStatus.OK);
 		
 	}
 	
 	@GetMapping(value = "api/payments/{id}")
-	public ResponseEntity<OldPaymentDTO> getDocument(@PathVariable("id") Long id){
+	public ResponseEntity<PaymentDTO> getDocument(@PathVariable("id") Long id){
 		Payment payment = paymentService.findOne(id);
 		if(payment == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<OldPaymentDTO>(new OldPaymentDTO(payment), HttpStatus.OK);
+		return new ResponseEntity<PaymentDTO>(paymentMapper.toDTO(payment), HttpStatus.OK);
 		
 	}
 	
 	//Nested:
 	
 	@GetMapping(value = "api/students/{id}/payments")
-	public ResponseEntity<Set<OldPaymentDTO>> getStudentPayments(@PathVariable("id") Long id){
+	public ResponseEntity<Set<PaymentDTO>> getStudentPayments(@PathVariable("id") Long id){
 		List<Payment> studentPayments = paymentService.findByStudentId(id);
 		if(studentPayments == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Set<OldPaymentDTO>>(OldPaymentDTO.paymentsToDTOs(studentPayments), HttpStatus.OK);
+		return new ResponseEntity<Set<PaymentDTO>>(paymentMapper.toDTO(studentPayments), HttpStatus.OK);
 		
 	}
 	
 	@GetMapping(value = "api/students/{student-id}/payments/{payment-id}")
-	public ResponseEntity<OldPaymentDTO> getStudentPayment(@PathVariable("student-id") Long studentId, @PathVariable("payment-id") Long documentId){
+	public ResponseEntity<PaymentDTO> getStudentPayment(@PathVariable("student-id") Long studentId, @PathVariable("payment-id") Long documentId){
 		Payment studentPayment = paymentService.findOneByStudentId(documentId, studentId);
 		if(studentPayment == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<OldPaymentDTO>(new OldPaymentDTO(studentPayment), HttpStatus.OK);
+		return new ResponseEntity<PaymentDTO>(paymentMapper.toDTO(studentPayment), HttpStatus.OK);
 		
 	}
 	
@@ -79,52 +84,35 @@ public class PaymentController {
 	
 
 	@PostMapping(value = "api/payments", consumes = "application/json")
-	public ResponseEntity<OldPaymentDTO> savePayment(@RequestBody OldPaymentDTO paymentDTO){
+	public ResponseEntity<PaymentDTO> savePayment(@RequestBody PaymentDTO paymentDTO){
 		if(paymentDTO == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
-		Payment payment = new Payment();
-		payment.setPaymentPurpose(paymentDTO.getPaymentPurpose());
-		payment.setAmount(paymentDTO.getAmount());
-		payment.setDate(new Date());
-		payment.setStudent(studentService.findOne(paymentDTO.getStudent().getId()));
-		payment.setDeleted(false);
-		
-		
-		payment = paymentService.save(payment);
-		return new ResponseEntity<OldPaymentDTO>(new OldPaymentDTO(payment), HttpStatus.CREATED);
+
+		Payment payment = paymentService.save(paymentMapper.toEntity(paymentDTO));
+		return new ResponseEntity<PaymentDTO>(paymentMapper.toDTO(payment), HttpStatus.CREATED);
 	}
 	
 	
 	@PutMapping(value = "api/payments", consumes = "application/json")
-	public ResponseEntity<OldPaymentDTO> updatePayment(@RequestBody OldPaymentDTO paymentDTO){
+	public ResponseEntity<PaymentDTO> updatePayment(@RequestBody PaymentDTO paymentDTO){
 		Payment payment = paymentService.findOne(paymentDTO.getId());
 		if (payment == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		payment.setPaymentPurpose(paymentDTO.getPaymentPurpose());
-		payment.setAmount(paymentDTO.getAmount());
-		payment.setDate(new Date());
-		payment.setStudent(studentService.findOne(paymentDTO.getStudent().getId()));
-		payment.setDeleted(false);
-		
-		
-		payment = paymentService.save(payment);
-		return new ResponseEntity<OldPaymentDTO>(new OldPaymentDTO(payment), HttpStatus.CREATED);	
+		payment = paymentService.save(paymentMapper.toExistingEntity(payment, paymentDTO));
+		return new ResponseEntity<PaymentDTO>(paymentMapper.toDTO(payment), HttpStatus.CREATED);	
 	}
 	
 	@DeleteMapping(value = "api/payments/{id}")
 	public ResponseEntity<Void> deletePayment(@PathVariable("id") Long id){
-		Payment payment = paymentService.findOne(id);
-		if(payment == null ) {
+		if(paymentService.remove(id)) {
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 		
-		payment.setDeleted(true);
-		paymentService.save(payment);
-		return new ResponseEntity<Void>(HttpStatus.OK);
 		
 	}
 	
