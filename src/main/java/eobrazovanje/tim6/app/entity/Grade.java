@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -36,7 +38,9 @@ public class Grade {
 	@Column(name = "total_points", unique = true, nullable = false)
 	private Integer totalPoints;
 	
-	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	//@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@ManyToMany
+	@JoinTable(name = "grades_pre_exam_obligations", joinColumns = @JoinColumn(name = "grade_id", referencedColumnName = "grade_id"), inverseJoinColumns = @JoinColumn(name = "pre_exam_obligation_id", referencedColumnName = "pre_exam_obligation_id"))
 	public Set<PreExamObligation> preExamObligations = new HashSet<PreExamObligation>();
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)

@@ -1,4 +1,4 @@
-use e_obrazovanje;
+use eobrazovanjedb;
 
 #password: bcrypt('pass') - 12 rounds - https://bcrypt-generator.com/
 #Promeniti pasworde po potrebi
@@ -52,17 +52,17 @@ INSERT INTO staff(deleted, firstname, lastname, version, academic_role_id, user_
 INSERT INTO staff(deleted, firstname, lastname, version, academic_role_id, user_id)
 	VALUES(0, 'Ross', 'Henderson', current_timestamp(), 2, 4); 
     
-#Engagements:
-INSERT INTO engagements(staff_id, academic_role_id, course_id , version, deleted)
-	VALUES(1, 2, 1, current_timestamp(), 0);
-INSERT INTO engagements(staff_id, academic_role_id, course_id , version, deleted)
-	VALUES(2, 2, 2, current_timestamp(), 0);
-
 #Courses:
 INSERT INTO courses (deleted, name, year, version)
 	VALUES(0, 'DB Basics 1', '2019', current_timestamp());
 INSERT INTO courses (deleted, name, year, version)
 	VALUES(0, 'DB Basics 2', '2019', current_timestamp());
+    
+#Engagements:
+INSERT INTO engagements(staff_id, academic_role_id, course_id , version, deleted)
+	VALUES(1, 2, 1, current_timestamp(), 0);
+INSERT INTO engagements(staff_id, academic_role_id, course_id , version, deleted)
+	VALUES(2, 2, 2, current_timestamp(), 0);
 
 #Student courses:
 INSERT INTO student_courses(student_id, course_id)
@@ -105,6 +105,10 @@ INSERT INTO exam_registrations(exam_registration_date, deleted, version, course_
 INSERT INTO exam_registrations(exam_registration_date, deleted, version, course_id, student_id, term_id)
 	VALUES(current_date(), 0, current_timestamp(), 1, 2, 2);
 
+#Grades:
+INSERT INTO grades(grade, total_points, student_id, course_id, version, deleted)
+	VALUES(8, 79, 1, 1, current_timestamp(), 0);
+
 #Pre exam obligations:
 INSERT INTO pre_exam_obligations(name, points, student_id, course_id, version, deleted)
 	VALUES('Written exam 1', 25, 1, 1, current_timestamp(), 0);
@@ -112,10 +116,6 @@ INSERT INTO pre_exam_obligations(name, points, student_id, course_id, version, d
 	VALUES('Written exam 2', 24, 1, 1, current_timestamp(), 0);
 INSERT INTO pre_exam_obligations(name, points, student_id, course_id, version, deleted)
 	VALUES('Spoken exam', 30, 1, 1, current_timestamp(), 0);
-
-#Grades:
-INSERT INTO grades(grade, total_points, student_id, course_id, version, deleted)
-	VALUES(8, 79, 1, 1, current_timestamp(), 0);
 
 #Payments:
 INSERT INTO payments(payment_purpose, amount, date, student_id, version, deleted)
@@ -128,8 +128,3 @@ INSERT INTO documents(name, uri, student_id, version, deleted)
 	VALUES('Scanned id card', 'ftp://localhost/files/131', 1, current_timestamp(), 0);
 INSERT INTO documents(name, uri, student_id, version, deleted)
 	VALUES('Scanned high school diploma', 'ftp://localhost/files/333', 1, current_timestamp(), 0);
-
-    
-
-    
-
