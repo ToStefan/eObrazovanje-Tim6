@@ -58,22 +58,22 @@ public class Student {
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "user_id", nullable = false)
-	public User user;
+	private User user;
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Set<Payment> payments;
+	private Set<Payment> payments;
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Set<Document> documents = new HashSet<Document>();
+	private Set<Document> documents = new HashSet<Document>();
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Set<PreExamObligation> preExamObligations = new HashSet<PreExamObligation>();
+	private Set<PreExamObligation> preExamObligations = new HashSet<PreExamObligation>();
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Set<Grade> grades = new HashSet<Grade>();
+	private Set<Grade> grades = new HashSet<Grade>();
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	public Set<ExamRegistration> examRegistrations = new HashSet<ExamRegistration>();
+	private Set<ExamRegistration> examRegistrations = new HashSet<ExamRegistration>();
 
 	@ManyToMany
 	@JoinTable(name = "student_courses", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "course_id"))

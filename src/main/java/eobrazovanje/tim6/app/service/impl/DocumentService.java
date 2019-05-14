@@ -44,9 +44,22 @@ public class DocumentService implements IDocumentService {
 	}
 
 	@Override
-	public void remove(Long documentId) {
-		documentRepository.deleteById(documentId);
-
+	public Boolean remove(Long documentId) {
+		//Physical deletion:
+		//documentRepository.deleteById(documentId);
+		
+		//Logical deletion:
+		//Not a problem here, but with other entites, cascade deletion needs to be solved
+		Document document = findOne(documentId);
+		if(document != null) {
+			document.setDeleted(true);
+			save(document);
+			return true;
+		}else {
+			return false;
+		}
+		
+		
 	}
 	
 	

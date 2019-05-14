@@ -1,24 +1,28 @@
-package eobrazovanje.tim6.app.web.dto;
+package eobrazovanje.tim6.app.web.dto.old;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import eobrazovanje.tim6.app.entity.GradeLookup;
 
-public class GradeLookupDTO {
+@JsonInclude(Include.NON_NULL)
+public class OldGradeLookupDTO {
 	
 	private Long id;
 	private Integer grade;
 	private Integer minPoints;
 	private Integer maxPoints;
 	
-	public GradeLookupDTO() {
+	public OldGradeLookupDTO() {
 		
 	}
 	
 	
-	public GradeLookupDTO(Long id, Integer grade, Integer minPoints, Integer maxPoints) {
+	public OldGradeLookupDTO(Long id, Integer grade, Integer minPoints, Integer maxPoints) {
 		super();
 		this.id = id;
 		this.grade = grade;
@@ -26,7 +30,7 @@ public class GradeLookupDTO {
 		this.maxPoints = maxPoints;
 	}
 	
-	public GradeLookupDTO(GradeLookup gradeLookup) {
+	public OldGradeLookupDTO(GradeLookup gradeLookup) {
 		this(
 				gradeLookup.getId(),
 				gradeLookup.getGrade(),
@@ -36,10 +40,10 @@ public class GradeLookupDTO {
 		
 	}
 	
-	public static Set<GradeLookupDTO> gradeLookupsToDTOs(Collection<GradeLookup> gradeLookups) {
+	public static Set<OldGradeLookupDTO> gradeLookupsToDTOs(Collection<GradeLookup> gradeLookups) {
 		return gradeLookups
 	            .stream()
-	            .map(lookup -> new GradeLookupDTO(lookup))
+	            .map(lookup -> new OldGradeLookupDTO(lookup))
 	            .collect(Collectors.toSet());
 	}
 	

@@ -1,14 +1,17 @@
-package eobrazovanje.tim6.app.web.dto;
-
+package eobrazovanje.tim6.app.web.dto.old;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import eobrazovanje.tim6.app.entity.Term;
 
 
-public class TermDTO {
+@JsonInclude(Include.NON_NULL)
+public class OldTermDTO {
 	
 
 	private Long id;
@@ -19,12 +22,12 @@ public class TermDTO {
 	private Boolean current;
 	
 	
-	public TermDTO() {
+	public OldTermDTO() {
 		
 	}
 	
 	
-	public TermDTO(Long id, String name, Date dateStart, Date dateEnd, Long version, Boolean current) {
+	public OldTermDTO(Long id, String name, Date dateStart, Date dateEnd, Long version, Boolean current) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -34,7 +37,7 @@ public class TermDTO {
 		this.current = current;
 	}
 	
-	public TermDTO(Term term) {
+	public OldTermDTO(Term term) {
 		this(
 				term.getId(),
 				term.getName(),
@@ -46,10 +49,10 @@ public class TermDTO {
 	}
 
 
-	public static Set<TermDTO> termsToDTOs(Collection<Term> terms) {
+	public static Set<OldTermDTO> termsToDTOs(Collection<Term> terms) {
 		return terms
 	            .stream()
-	            .map(term -> new TermDTO(term))
+	            .map(term -> new OldTermDTO(term))
 	            .collect(Collectors.toSet());
 	}
 	
