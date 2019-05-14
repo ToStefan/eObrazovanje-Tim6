@@ -1,7 +1,6 @@
 
 package eobrazovanje.tim6.app.entity;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
