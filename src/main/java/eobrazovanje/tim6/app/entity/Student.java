@@ -243,4 +243,8 @@ public class Student {
 
 		this.examRegistrations = examRegistrations;
 	}
+
+	public void setPreExamObligations(Set<PreExamObligation> preExamObligations) {
+		this.preExamObligations = preExamObligations;
+	}
 }

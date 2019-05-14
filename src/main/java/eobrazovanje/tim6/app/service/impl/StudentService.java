@@ -1,10 +1,8 @@
 package eobrazovanje.tim6.app.service.impl;
 
-import java.util.List;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import eobrazovanje.tim6.app.entity.Student;
 import eobrazovanje.tim6.app.repository.StudentRepository;
@@ -17,20 +15,14 @@ public class StudentService implements IStudentService {
 	private StudentRepository studentRep;
 
 	@Override
-	public List<Student> findAll(PageRequest pageRequest) {
-		//return studentRep.findAll();
-		Page<Student> studentPage = studentRep.findAll(pageRequest);
-	    
-	    
-	    List<Student> values = studentPage.getContent();
-	    
-	    return values;
-	    
+	public Student findOne(Long studentId) {
+		return studentRep.getOne(studentId);
 	}
 
 	@Override
-	public Student findOne(Long studentId) {
-		return studentRep.getOne(studentId);
+	public Page<Student> findAll(Pageable pageable) {
+		
+		return studentRep.findAll(pageable);
 	}
 	
 	
