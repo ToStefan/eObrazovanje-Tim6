@@ -1,9 +1,10 @@
 package eobrazovanje.tim6.app.web.controller;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,9 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import eobrazovanje.tim6.app.entity.Document;
 import eobrazovanje.tim6.app.service.impl.DocumentService;
-import eobrazovanje.tim6.app.service.impl.StudentService;
 import eobrazovanje.tim6.app.web.dto.DocumentDTO;
-import eobrazovanje.tim6.app.web.dto.old.OldDocumentDTO;
 import eobrazovanje.tim6.app.web.mapper.DocumentMapper;
 
 @RestController
@@ -36,8 +35,8 @@ public class DocumentController {
 	//General:
 	
 	@GetMapping(value = "api/documents")
-	public ResponseEntity<Set<DocumentDTO>> getDocuments(){
-		List<Document> documents = documentService.findAll();
+	public ResponseEntity<Set<DocumentDTO>> getDocuments(Pageable pageable){
+		Page<Document> documents = documentService.findAll(pageable);
 		if(documents == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -58,22 +57,22 @@ public class DocumentController {
 	//Nested:
 	
 	@GetMapping(value = "api/students/{id}/documents")
-	public ResponseEntity<Set<OldDocumentDTO>> getStudentDocuments(@PathVariable("id") Long id){
-		List<Document> studentDocuments = documentService.findByStudentId(id);
+	public ResponseEntity<Set<DocumentDTO>> getStudentDocuments(@PathVariable("id") Long id, Pageable pageable){
+		Page<Document> studentDocuments = documentService.findByStudentId(id, pageable);
 		if(studentDocuments == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Set<OldDocumentDTO>>(OldDocumentDTO.documentsToDTOs(studentDocuments), HttpStatus.OK);
+		return new ResponseEntity<Set<DocumentDTO>>(documentMapper.toDTO(studentDocuments), HttpStatus.OK);
 		
 	}
 	
 	@GetMapping(value = "api/students/{student-id}/documents/{document-id}")
-	public ResponseEntity<OldDocumentDTO> getStudentDocument(@PathVariable("student-id") Long studentId, @PathVariable("document-id") Long documentId){
+	public ResponseEntity<DocumentDTO> getStudentDocument(@PathVariable("student-id") Long studentId, @PathVariable("document-id") Long documentId){
 		Document studentDocument = documentService.findOneByStudentId(documentId, studentId);
 		if(studentDocument == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<OldDocumentDTO>(new OldDocumentDTO(studentDocument), HttpStatus.OK);
+		return new ResponseEntity<DocumentDTO>(documentMapper.toDTO(studentDocument), HttpStatus.OK);
 		
 	}
 	

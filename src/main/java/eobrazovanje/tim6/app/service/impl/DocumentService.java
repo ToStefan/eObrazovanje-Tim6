@@ -1,8 +1,8 @@
 package eobrazovanje.tim6.app.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import eobrazovanje.tim6.app.entity.Document;
@@ -16,8 +16,8 @@ public class DocumentService implements IDocumentService {
 	private DocumentRepository documentRepository;
 	
 	@Override
-	public List<Document> findAll() {
-		return documentRepository.findAll();
+	public Page<Document> findAll(Pageable pageable) {
+		return documentRepository.findAll(pageable);
 	}
 	
 	
@@ -28,8 +28,8 @@ public class DocumentService implements IDocumentService {
 
 
 	@Override
-	public List<Document> findByStudentId(Long studentId) {
-		return documentRepository.findByStudentId(studentId);
+	public Page<Document> findByStudentId(Long studentId, Pageable pageable) {
+		return documentRepository.findByStudentId(studentId, pageable);
 	}
 	
 

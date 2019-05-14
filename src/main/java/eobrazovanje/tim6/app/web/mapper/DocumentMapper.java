@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import eobrazovanje.tim6.app.entity.Document;
@@ -35,6 +36,13 @@ public class DocumentMapper implements Mapper<Document, DocumentDTO> {
 	@Override
 	public Set<DocumentDTO> toDTO(Collection<Document> entities) {
 		return entities
+				.stream()
+				.map(document -> toDTO(document))
+				.collect(Collectors.toSet());
+	}
+	
+	public Set<DocumentDTO> toDTO(Page<Document> documentPage) {
+		return documentPage
 				.stream()
 				.map(document -> toDTO(document))
 				.collect(Collectors.toSet());
