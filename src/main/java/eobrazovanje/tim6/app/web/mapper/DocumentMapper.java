@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import eobrazovanje.tim6.app.entity.Document;
+import eobrazovanje.tim6.app.service.impl.StudentService;
 import eobrazovanje.tim6.app.web.dto.DocumentDTO;
 
 @Component
@@ -16,6 +17,9 @@ public class DocumentMapper implements Mapper<Document, DocumentDTO> {
 
 	@Autowired
 	StudentMapper studentMapper;
+	
+	@Autowired
+	StudentService studentService;
 	
 	
 	@Override
@@ -26,7 +30,7 @@ public class DocumentMapper implements Mapper<Document, DocumentDTO> {
 		dDTO.setUri(document.getUri());
 		dDTO.setDeleted(document.getDeleted());
 		dDTO.setVersion(document.getVersion());
-		dDTO.setStudent(studentMapper.toStrippedDTO(document.getStudent()));
+		dDTO.setStudentId(document.getStudent().getId());
 		
 		return dDTO;
 		
@@ -48,26 +52,28 @@ public class DocumentMapper implements Mapper<Document, DocumentDTO> {
 				.collect(Collectors.toSet());
 	}
 	
-	//public DocmentDTO toDTOWithoutStudent() - Segedinac naming conventions
-	public DocumentDTO toStrippedDTO(Document document) {
-		DocumentDTO dDTO = new DocumentDTO();
-		dDTO.setId(document.getId());
-		dDTO.setName(document.getName());
-		dDTO.setUri(document.getUri());
-		dDTO.setDeleted(document.getDeleted());
-		dDTO.setVersion(document.getVersion());
-		
-		return dDTO;
-		
-	}
 	
-	public Set<DocumentDTO> toStrippedDTO(Collection<Document> documents) {
-		return documents
-				.stream()
-				.map(document -> toStrippedDTO(document))
-				.collect(Collectors.toSet());
-		
-	}
+	//
+	
+//	public DocumentDTO toStrippedDTO(Document document) {
+//		DocumentDTO dDTO = new DocumentDTO();
+//		dDTO.setId(document.getId());
+//		dDTO.setName(document.getName());
+//		dDTO.setUri(document.getUri());
+//		dDTO.setDeleted(document.getDeleted());
+//		dDTO.setVersion(document.getVersion());
+//		
+//		return dDTO;
+//		
+//	}
+	
+//	public Set<DocumentDTO> toStrippedDTO(Collection<Document> documents) {
+//		return documents
+//				.stream()
+//				.map(document -> toStrippedDTO(document))
+//				.collect(Collectors.toSet());
+//		
+//	}
 
 	@Override
 	public Document toEntity(DocumentDTO documentDTO) {
@@ -76,7 +82,7 @@ public class DocumentMapper implements Mapper<Document, DocumentDTO> {
 		document.setUri(documentDTO.getUri());
 		document.setDeleted(documentDTO.getDeleted());
 		document.setVersion(documentDTO.getVersion());
-		//document.setStudent(studentMapper.toEntity(documentDTO.getStudent()));
+		document.setStudent(studentService.findOne(documentDTO.getStudentId()));
 		
 		return document;
 	}

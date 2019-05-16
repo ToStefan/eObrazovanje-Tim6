@@ -32,7 +32,7 @@ public class StudentMapper implements Mapper<Student, StudentDTO> {
 		sDTO.setVersion(student.getVersion());
 		sDTO.setDeleted(student.getDeleted());
 		
-		sDTO.setDocuments(documentMapper.toStrippedDTO(student.getDocuments()));
+		sDTO.setDocuments(documentMapper.toDTO(student.getDocuments()));
 		sDTO.setPayments(paymentMapper.toStrippedDTO(student.getPayments()));
 		
 		return sDTO;

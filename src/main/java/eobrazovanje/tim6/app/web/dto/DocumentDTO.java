@@ -4,10 +4,11 @@ public class DocumentDTO {
 	
 	private Long id;
 	private String name;
+	private String fileName;
 	private String uri;
 	private Long version;
 	private Boolean deleted;
-	private StudentDTO student;
+	private Long studentId;
 	
 	public DocumentDTO() {
 		
@@ -28,6 +29,14 @@ public class DocumentDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
 	public String getUri() {
 		return uri;
@@ -45,12 +54,13 @@ public class DocumentDTO {
 		this.version = version;
 	}
 
-	public StudentDTO getStudent() {
-		return student;
+	
+	public Long getStudentId() {
+		return studentId;
 	}
 
-	public void setStudent(StudentDTO student) {
-		this.student = student;
+	public void setStudentId(Long studentId) {
+		this.studentId = studentId;
 	}
 
 	public Boolean getDeleted() {

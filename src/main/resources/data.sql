@@ -124,7 +124,7 @@ INSERT INTO payments(payment_purpose, amount, date, student_id, version, deleted
 	VALUES('Exam registration', 200, current_date(), 2, current_timestamp(), 0);
     
 #Documents
-INSERT INTO documents(name, uri, student_id, version, deleted)
-	VALUES('Scanned id card', 'ftp://localhost/files/131', 1, current_timestamp(), 0);
-INSERT INTO documents(name, uri, student_id, version, deleted)
-	VALUES('Scanned high school diploma', 'ftp://localhost/files/333', 1, current_timestamp(), 0);
+INSERT INTO documents(name, file_name, uri, student_id, version, deleted)
+	VALUES('Scanned id card', 'idcard.pdf' 'ftp://localhost/files/idcard.pdf', 1, current_timestamp(), 0);
+INSERT INTO documents(name, file_name, uri, student_id, version, deleted)
+	VALUES('Scanned high school diploma', 'file_name.pdf', 'ftp://localhost/files/file_name.pdf', 1, current_timestamp(), 0);

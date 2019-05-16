@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import eobrazovanje.tim6.app.entity.Document;
 import eobrazovanje.tim6.app.service.impl.DocumentService;
+import eobrazovanje.tim6.app.service.impl.FileStorageService;
 import eobrazovanje.tim6.app.web.dto.DocumentDTO;
 import eobrazovanje.tim6.app.web.mapper.DocumentMapper;
 
@@ -30,6 +34,9 @@ public class DocumentController {
 	
 	@Autowired
 	private DocumentMapper documentMapper;
+	
+	@Autowired
+    private FileStorageService fileStorageService;
 	
 	
 	//General:
@@ -78,20 +85,23 @@ public class DocumentController {
 	
 	//Create, Update, Delete:
 	
+	//request param - form field of file with the value of a chosen file
+	//plus the json body
 	@PostMapping(value = "api/documents", consumes = "application/json")
-	public ResponseEntity<DocumentDTO> saveDocument(@RequestBody DocumentDTO documentDTO){
-		if(documentDTO == null) {
+	public ResponseEntity<DocumentDTO> saveDocument(@RequestBody DocumentDTO documentDTO, @RequestParam("file") MultipartFile file){
+		if(documentDTO == null || file == null) {
 			return new ResponseEntity<DocumentDTO>(HttpStatus.BAD_REQUEST);
 		}
 		
-		
-//		Document document = new Document();
-//		document.setName(documentDTO.getName());
-//		document.setUri(documentDTO.getUri());
-//		document.setDeleted(false);
-//		document.setStudent(studentService.findOne(documentDTO.getStudent().getId()));
-		
-		//instead:
+		String fileName = fileStorageService.storeFile(file);
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+            .path("/api/documents/download-file/")
+            .path(fileName)
+            .toUriString();
+        
+        documentDTO.setFileName(fileName);
+        documentDTO.setUri(fileDownloadUri);
+
 		Document document = documentService.save(documentMapper.toEntity(documentDTO));
 		
 		return new ResponseEntity<DocumentDTO>(documentMapper.toDTO(document), HttpStatus.CREATED);
