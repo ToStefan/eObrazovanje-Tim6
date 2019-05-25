@@ -39,6 +39,13 @@ INSERT INTO students(account_balance, adress, deleted, first_name, id_number, la
 	VALUES(0.0, 'Main street 1', 0, 'Johnathan', 'PR103', 'Meek', '06006662626',  current_timestamp(), 1);
 INSERT INTO students(account_balance, adress, deleted, first_name, id_number, last_name, phone_number, version, user_id)
 	VALUES(0.0, 'Main street 2', 0, 'Michael', 'PR104', 'Deen', '060066542626',  current_timestamp(), 2);
+INSERT INTO students(account_balance, adress, deleted, first_name, id_number, last_name, phone_number, version, user_id)
+	VALUES(0.0, 'Main street 1', 0, 'Johnathan', 'PR105', 'Meek', '06006662627',  current_timestamp(), 3);
+INSERT INTO students(account_balance, adress, deleted, first_name, id_number, last_name, phone_number, version, user_id)
+	VALUES(0.0, 'Main street 2', 0, 'Michael', 'PR106', 'Deen', '060066542628',  current_timestamp(), 4);
+INSERT INTO students(account_balance, adress, deleted, first_name, id_number, last_name, phone_number, version, user_id)
+	VALUES(0.0, 'Main street 1', 0, 'Johnathan', 'PR107', 'Meek', '06006662629',  current_timestamp(), 5);
+
     
 #Academic roles:
 INSERT INTO academic_roles (deleted, name, version)
@@ -128,3 +135,4 @@ INSERT INTO documents(name, uri, student_id, version, deleted)
 	VALUES('Scanned id card', 'ftp://localhost/files/131', 1, current_timestamp(), 0);
 INSERT INTO documents(name, uri, student_id, version, deleted)
 	VALUES('Scanned high school diploma', 'ftp://localhost/files/333', 1, current_timestamp(), 0);
+	
