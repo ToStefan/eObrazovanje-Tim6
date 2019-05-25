@@ -3,9 +3,10 @@ package eobrazovanje.tim6.app.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import eobrazovanje.tim6.app.entity.Document;
 import eobrazovanje.tim6.app.entity.Payment;
 import eobrazovanje.tim6.app.repository.PaymentRepository;
 import eobrazovanje.tim6.app.service.IPaymentService;
@@ -17,8 +18,8 @@ public class PaymentService implements IPaymentService {
 	PaymentRepository paymentRepository;
 
 	@Override
-	public List<Payment> findAll() {
-		return paymentRepository.findAll();
+	public Page<Payment> findAll(Pageable pageable) {
+		return paymentRepository.findAll(pageable);
 	}
 	
 	@Override
@@ -28,8 +29,8 @@ public class PaymentService implements IPaymentService {
 	
 
 	@Override
-	public List<Payment> findByStudentId(Long studentId) {
-		return paymentRepository.findByStudentId(studentId);
+	public Page<Payment> findByStudentId(Long studentId, Pageable pageable) {
+		return paymentRepository.findByStudentId(studentId, pageable);
 	}
 	
 	@Override

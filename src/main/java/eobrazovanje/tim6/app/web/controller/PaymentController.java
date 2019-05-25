@@ -1,10 +1,10 @@
 package eobrazovanje.tim6.app.web.controller;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import eobrazovanje.tim6.app.entity.Payment;
 import eobrazovanje.tim6.app.service.impl.PaymentService;
-import eobrazovanje.tim6.app.service.impl.StudentService;
 import eobrazovanje.tim6.app.web.dto.PaymentDTO;
-import eobrazovanje.tim6.app.web.dto.old.OldPaymentDTO;
 import eobrazovanje.tim6.app.web.mapper.PaymentMapper;
 
 @RestController
@@ -33,14 +31,12 @@ public class PaymentController {
 	@Autowired
 	private PaymentMapper paymentMapper;
 	
-	@Autowired
-	private StudentService studentService;
 	
 	//General:
-	
+	//?page=0&size=3
 	@GetMapping(value = "api/payments")
-	public ResponseEntity<Set<PaymentDTO>> getPayments(){
-		List<Payment> payments = paymentService.findAll();
+	public ResponseEntity<Set<PaymentDTO>> getPayments(Pageable pageable){
+		Page<Payment> payments = paymentService.findAll(pageable);
 		if(payments == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -61,8 +57,8 @@ public class PaymentController {
 	//Nested:
 	
 	@GetMapping(value = "api/students/{id}/payments")
-	public ResponseEntity<Set<PaymentDTO>> getStudentPayments(@PathVariable("id") Long id){
-		List<Payment> studentPayments = paymentService.findByStudentId(id);
+	public ResponseEntity<Set<PaymentDTO>> getStudentPayments(@PathVariable("id") Long id, Pageable pageable){
+		Page<Payment> studentPayments = paymentService.findByStudentId(id, pageable);
 		if(studentPayments == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

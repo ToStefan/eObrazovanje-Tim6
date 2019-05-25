@@ -28,6 +28,9 @@ public class Document {
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
 	
+	@Column(name = "file_name", unique = false, nullable = false)
+	private String fileName;
+	
 	@Column(name = "uri", unique = false, nullable = false)
 	private String uri;
 	
@@ -105,4 +108,14 @@ public class Document {
 		
 		this.student = student;
 	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	
 }

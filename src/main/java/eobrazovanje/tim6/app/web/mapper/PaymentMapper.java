@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import eobrazovanje.tim6.app.entity.Payment;
@@ -32,6 +33,14 @@ public class PaymentMapper implements Mapper<Payment, PaymentDTO> {
 	@Override
 	public Set<PaymentDTO> toDTO(Collection<Payment> entities) {
 		return entities
+				.stream()
+				.map(payment -> toDTO(payment))
+				.collect(Collectors.toSet());
+	}
+	
+	
+	public Set<PaymentDTO> toDTO(Page<Payment> paymentsPage) {
+		return paymentsPage
 				.stream()
 				.map(payment -> toDTO(payment))
 				.collect(Collectors.toSet());
