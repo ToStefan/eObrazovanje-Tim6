@@ -24,6 +24,24 @@ public class StudentService implements IStudentService {
 		
 		return studentRep.findAll(pageable);
 	}
+
+	@Override
+	public Student save(Student student) {
+		
+		return studentRep.save(student);
+	}
+
+	@Override
+	public Student update(Student student) {
+		
+		return studentRep.save(student);
+	}
+
+	@Override
+	public void delete(Long id) {
+		
+		studentRep.deleteById(id);
+	}
 	
 	
 }

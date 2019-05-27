@@ -46,8 +46,6 @@ public class Course {
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	public Set<Engagement> engagements = new HashSet<Engagement>();
 	
-	
-	
 	public Course() {
 		
 	}
