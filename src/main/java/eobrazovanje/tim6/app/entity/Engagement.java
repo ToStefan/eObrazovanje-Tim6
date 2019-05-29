@@ -1,107 +1,43 @@
 
 package eobrazovanje.tim6.app.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Version;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "engagements")
 @Where(clause = "deleted=false")
 public class Engagement {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "engagement_id", unique = true, nullable = false)
-	private Long id;
-	
-	@Column(name = "deleted", unique = false, nullable = false)
-	private Boolean deleted = false;
-	
-	@Version
-	@Column(name = "version", unique = false, nullable = false)
-	private Long version;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "academic_role_id")
-	public AcademicRole academicRole;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "course_id")
-	public Course course;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "staff_id")
-	public Staff staff;
-	
-	public Engagement() {
-		
-	}
-	
-	public Long getId() {
-		
-		return id;
-	}
-	
-	public void setId(Long newId) {
-		
-		id = newId;
-	}
-	
-	public Boolean getDeleted() {
-		
-		return deleted;
-	}
-	
-	public void setDeleted(Boolean newDeleted) {
-		
-		deleted = newDeleted;
-	}
-	
-	public Long getVersion() {
-		
-		return version;
-	}
-	
-	public void setVersion(Long newVersion) {
-		
-		version = newVersion;
-	}
 
-	public AcademicRole getAcademicRole() {
-		return academicRole;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "engagement_id", unique = true, nullable = false)
+    private Long id;
 
-	public void setAcademicRole(AcademicRole academicRole) {
-		this.academicRole = academicRole;
-	}
+    @NotNull
+    private Boolean deleted = false;
 
-	public Course getCourse() {
-		return course;
-	}
+    @Version
+    @NotNull
+    private Long version;
 
-	public void setCourse(Course course) {
-		this.course = course;
-	}
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "academic_role_id")
+    public AcademicRole academicRole;
 
-	public Staff getStaff() {
-		return staff;
-	}
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "course_id")
+    public Course course;
 
-	public void setStaff(Staff staff) {
-		this.staff = staff;
-	}
-	
-	
-	
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "staff_id")
+    public Staff staff;
 }
