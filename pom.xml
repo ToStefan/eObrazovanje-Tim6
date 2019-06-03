@@ -68,6 +68,16 @@
     		<version>0.10.2</version>
     		<scope>runtime</scope>
 		</dependency>
+		<dependency>
+        	<groupId>org.hibernate.javax.persistence</groupId>
+        	<artifactId>hibernate-jpa-2.0-api</artifactId>
+        	<version>1.0.1.Final</version>
+    	</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<!--  
 		<dependency>
 		    <groupId>com.dropbox.core</groupId>
