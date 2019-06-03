@@ -3,20 +3,17 @@ package eobrazovanje.tim6.app.web.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-import eobrazovanje.tim6.app.entity.Engagement;
-import eobrazovanje.tim6.app.entity.Student;
 
-public class CourseDTO {
-	
+public class AcademicRoleDTO {
+
 	private Long id;
 	private String name;
-	private String year;
 	private Boolean deleted;
 	private Long version;
+	private Set<StaffDTO> staffsDTO=new HashSet<>();
 	private Set<EngagementDTO> engagementsDTO=new HashSet<>();
-	private Set<StudentDTO> studentsDTO=new HashSet<>();
 	
-	public CourseDTO() {}
+	public AcademicRoleDTO() {}
 
 	public Long getId() {
 		return id;
@@ -32,14 +29,6 @@ public class CourseDTO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getYear() {
-		return year;
-	}
-
-	public void setYear(String year) {
-		this.year = year;
 	}
 
 	public Boolean getDeleted() {
@@ -58,12 +47,12 @@ public class CourseDTO {
 		this.version = version;
 	}
 
-	public Set<StudentDTO> getStudentsDTO() {
-		return studentsDTO;
+	public Set<StaffDTO> getStaffsDTO() {
+		return staffsDTO;
 	}
 
-	public void setStudentsDTO(Set<StudentDTO> studentsDTO) {
-		this.studentsDTO = studentsDTO;
+	public void setStaffsDTO(Set<StaffDTO> staffsDTO) {
+		this.staffsDTO = staffsDTO;
 	}
 
 	public Set<EngagementDTO> getEngagementsDTO() {
@@ -74,7 +63,5 @@ public class CourseDTO {
 		this.engagementsDTO = engagementsDTO;
 	}
 
-
 	
-
 }

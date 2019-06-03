@@ -3,20 +3,18 @@ package eobrazovanje.tim6.app.web.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-import eobrazovanje.tim6.app.entity.Engagement;
-import eobrazovanje.tim6.app.entity.Student;
+public class StaffDTO {
 
-public class CourseDTO {
-	
 	private Long id;
-	private String name;
-	private String year;
+	private String firstName;
+	private String lastName;
 	private Boolean deleted;
 	private Long version;
+	private UserDTO userDTO;
+	private AcademicRoleDTO arDTO;
 	private Set<EngagementDTO> engagementsDTO=new HashSet<>();
-	private Set<StudentDTO> studentsDTO=new HashSet<>();
 	
-	public CourseDTO() {}
+	public StaffDTO() {}
 
 	public Long getId() {
 		return id;
@@ -26,20 +24,20 @@ public class CourseDTO {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getYear() {
-		return year;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setYear(String year) {
-		this.year = year;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Boolean getDeleted() {
@@ -58,12 +56,20 @@ public class CourseDTO {
 		this.version = version;
 	}
 
-	public Set<StudentDTO> getStudentsDTO() {
-		return studentsDTO;
+	public UserDTO getUserDTO() {
+		return userDTO;
 	}
 
-	public void setStudentsDTO(Set<StudentDTO> studentsDTO) {
-		this.studentsDTO = studentsDTO;
+	public void setUserDTO(UserDTO userDTO) {
+		this.userDTO = userDTO;
+	}
+
+	public AcademicRoleDTO getArDTO() {
+		return arDTO;
+	}
+
+	public void setArDTO(AcademicRoleDTO arDTO) {
+		this.arDTO = arDTO;
 	}
 
 	public Set<EngagementDTO> getEngagementsDTO() {
@@ -73,8 +79,6 @@ public class CourseDTO {
 	public void setEngagementsDTO(Set<EngagementDTO> engagementsDTO) {
 		this.engagementsDTO = engagementsDTO;
 	}
-
-
 	
-
+	
 }
