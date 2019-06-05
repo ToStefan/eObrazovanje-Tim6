@@ -27,13 +27,12 @@ import eobrazovanje.tim6.app.security.JwtAuthenticationFilter;
 							securedEnabled = true)
 @EnableWebSecurity
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
-@ComponentScan({"eobrazovanje.tim6.service", "eobrazovanje.tim6.security"})
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
-	
+
 	@Autowired
 	private JwtAuthenticationEntryPoint unauthorizedHandler;
 	
@@ -78,7 +77,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-         .authorizeRequests().antMatchers("/").permitAll();
+         .authorizeRequests()
+				.antMatchers("/").permitAll();
+				//.antMatchers("/swagger-ui.html#/**").permitAll()
+				//.anyRequest().authenticated();
 		
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
