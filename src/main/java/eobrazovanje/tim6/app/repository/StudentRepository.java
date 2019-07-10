@@ -11,5 +11,6 @@ import eobrazovanje.tim6.app.entity.Student;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 	
 	Page<Student> findAll(Pageable pageable);
+	Student findByUserId(Long userId);
 	
 }

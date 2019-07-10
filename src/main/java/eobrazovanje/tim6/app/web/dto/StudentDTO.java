@@ -16,7 +16,7 @@ public class StudentDTO {
 	private Long version;
 	private Boolean deleted;
 	public UserDTO user;
-	public Set<PaymentDTO> payments;
+	public Set<PaymentDTO> payments  = new HashSet<PaymentDTO>();
 	public Set<DocumentDTO> documents = new HashSet<DocumentDTO>();
 	public Set<PreExamObligationDTO> preExamObligations = new HashSet<PreExamObligationDTO>();
 	public Set<GradeDTO> grades = new HashSet<GradeDTO>();

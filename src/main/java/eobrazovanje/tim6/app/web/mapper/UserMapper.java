@@ -31,18 +31,13 @@ public class UserMapper implements Mapper {
         return user;
 	}
 	
+
 	public UserDTO toDTO(User user) {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(user.getId());
 		userDTO.setUsername(user.getUsername());
 		userDTO.setRoles(user.getRoles());
 		return userDTO;
-	}
-
-	@Override
-	public Object toDTO(Object entity) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -59,6 +54,12 @@ public class UserMapper implements Mapper {
 
 	@Override
 	public Set toEntity(Collection dtos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object toDTO(Object entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}

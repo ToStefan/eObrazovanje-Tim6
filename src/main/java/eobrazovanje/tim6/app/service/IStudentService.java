@@ -9,6 +9,7 @@ public interface IStudentService {
 	
 	
 	Student findOne(Long studentId);
+	Student findByUserId(Long userId);
 	Page<Student> findAll(Pageable pageable);
 	Student save(Student student);
 	Student update(Student student);

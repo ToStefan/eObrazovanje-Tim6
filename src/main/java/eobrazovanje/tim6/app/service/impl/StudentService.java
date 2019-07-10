@@ -18,6 +18,11 @@ public class StudentService implements IStudentService {
 	public Student findOne(Long studentId) {
 		return studentRep.getOne(studentId);
 	}
+	
+	@Override
+	public Student findByUserId(Long userId) {
+		return studentRep.findByUserId(userId);
+	}
 
 	@Override
 	public Page<Student> findAll(Pageable pageable) {
@@ -42,6 +47,8 @@ public class StudentService implements IStudentService {
 		
 		studentRep.deleteById(id);
 	}
+
+	
 	
 	
 }

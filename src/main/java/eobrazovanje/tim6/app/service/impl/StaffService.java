@@ -18,6 +18,11 @@ public class StaffService implements IStaffService {
 	public Staff findOne(Long staffId) {
 		return staffRep.getOne(staffId);
 	}
+	
+	@Override
+	public Staff findByUserId(Long userId) {
+		return staffRep.findByUserId(userId);
+	}
 
 	@Override
 	public Page<Staff> findAll(Pageable pageable) {
@@ -37,6 +42,8 @@ public class StaffService implements IStaffService {
 	public void delete(Long id) {
 		staffRep.deleteById(id);
 	}
+
+	
 
 
 

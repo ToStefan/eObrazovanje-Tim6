@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface IStaffService {
 
     Staff findOne(Long studentId);
+    Staff findByUserId(Long userId);
     Page<Staff> findAll(Pageable pageable);
     Staff save(Staff staff);
     Staff update(Staff staff);

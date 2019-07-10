@@ -7,4 +7,6 @@ import eobrazovanje.tim6.app.entity.Staff;
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Long> {
 	
+	Staff findByUserId(Long userId);
+	
 }
